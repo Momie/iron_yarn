@@ -1,0 +1,85 @@
+<!-- start not ufo version -->
+<hr>
+<!-- end not ufo version -->
+<!-- start ufo version -->
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width:30%;">part</th>
+            <th colspan="2" style="width:30%;">description</th>
+            <th class="quantity">qty
+                <a class="ion-android-refresh quantity-reset noselect" ng-click="quantityReset()"></a>
+            </th>
+            <!-- <th></th> -->
+            <th class="text-right">price/ea</th>
+            <th class="text-right">total price</th>
+        </tr>
+    </thead>
+    <tbody class="tab-footer" ng-repeat="elem in project.info.bill_of_material.groups_of_items track by $index">
+        <tr ng-repeat="item in elem.items track by $index">
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} ">{{item.part}}</td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} " colspan="2">{{item.description}}</td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} " style="min-width: 100px;">
+                <a class="ion-minus-round quantity-minus noselect" ng-click="item.spare_quantity > -1 * item.quantity && quantityReduce(item)" ng-style="{'opacity': item.spare_quantity > -1 * item.quantity ? 1 : 0, 'cursor': item.spare_quantity > -1 * item.quantity ? 'pointer' : 'default'}"></a>
+                <input type="text" ng-model="project.quantityValues[$parent.$index][$index]" ng-focus="selectAllContent($event)" ng-keydown="keyDownSpareQuantity()" ng-keyup="keyUpSpareQuantity(item, $parent.$index, $index)" ng-blur="blurSpareQuantity(item,$parent.$index,  $index)">
+                <a class="ion-plus-round quantity-plus noselect" ng-click="quantityAdd(item)"></a>
+            </td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} " class="text-right">{{item.price_each}}</td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} " class="text-right">{{item.total_price}}</td>
+        </tr>
+    </tbody>
+    <tbody class="tab-footer">
+        <tr>
+            <td colspan="4" class="td-border-top">
+            </td>
+            <td class="text-right td-border-top">
+                <span>MSRP</span>
+            </td>
+            <td class="text-right td-border-top">
+                <span class="notBold text-right">{{project.info.bill_of_material.msrp}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>Discount</span>
+                <input class="input-dis " type="text" ng-model="project.info.discount" ng-keydown="keyDownUpdateDiscount()" ng-keyup="keyUpUpdateDiscount()" ng-blur="blurDiscount()" ng-focus="selectAllContent($event)">
+                <span> &nbsp;%</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold margin-left-6 text-right"> ({{project.info.bill_of_material.discounted_value}})</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2" class="text-right b-t-light">
+                <span><span>Total Price</span></span>
+            </td>
+            <td class="text-right ">
+                <span class="notBold text-right"><b>{{project.info.bill_of_material.total_price}}<b></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>$/Watt</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold text-right"><b>{{project.info.bill_of_material.dollar_per_watt}}</b></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>Weight</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold">{{project.info.bill_of_material.racking_weight || 0}}&nbsp;lbs</span>
+            </td>
+        </tr>
+    </tbody>
+</table>

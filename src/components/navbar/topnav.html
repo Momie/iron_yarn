@@ -1,0 +1,129 @@
+<!-- if no user -->
+<ul class="topnav" ng-if="!$root.user">
+    <li style="width: 135px;">
+        <a ng-href="{{$root.HOST_URL}}/distributors">FIND DISTRIBUTOR</a>
+    </li>
+    <li style="width: 130px;"><a ng-href="{{$root.HOST_URL}}/projects">MY PROJECTS</a></li>
+    <li style="width: 100px;"><a ng-href="{{$root.HOST_URL}}/account/edit">ACCOUNT</a></li>
+</ul>
+
+<!-- if privileged user -->
+<ul class="topnav" ng-if="$root.user && $root.user.admin">
+    <li style="width: 80px;"><a ng-href="{{$root.HOST_URL}}/sales/users">SALES</a></li>
+    <li><a ng-href="{{$root.HOST_URL}}/admin/users">ADMIN </a></li>
+    <li style="width: 80px;"><a href="" ng-click="signOut()">SIGN OUT</a></li>
+    <li style="width: 135px;">
+        <a ng-href="{{$root.HOST_URL}}/distributors">FIND DISTRIBUTOR</a>
+    </li>
+    <li style="width: 130px;"><a ng-href="{{$root.HOST_URL}}/projects">MY PROJECTS</a></li>
+    <li style="width: 100px;"><a ng-href="{{$root.HOST_URL}}/account/edit">ACCOUNT</a></li>
+</ul>
+
+<!-- if normal user -->
+<ul class="topnav" ng-if="$root.user && !$root.user.admin">
+    <li style="width: 80px;"><a href="" ng-click="signOut()">SIGN OUT</a></li>
+    <li style="width: 135px;">
+        <a ng-href="{{$root.HOST_URL}}/distributors">FIND DISTRIBUTOR</a>
+    </li>
+    <li style="width: 130px;"><a ng-href="{{$root.HOST_URL}}/projects">MY PROJECTS</a></li>
+    <li style="width: 100px;"><a ng-href="{{$root.HOST_URL}}/account/edit">ACCOUNT</a></li>
+</ul>
+
+<div id='ir_header'>
+    <div id='ir_header_container'>
+        <div id="ir_logo">
+            <a ng-href="{{wp_nav_to('/')}}"><img alt="IronRidge" src="//s3-us-west-1.amazonaws.com/files.ironridge.com/assets/website/iron_ridge_logo.png" title="IronRidge"></a>
+        </div>
+        <div id="ir_main_nav_container">
+            <ul id="ir_main_nav">
+                <li>
+                    <a ng-href="{{wp_nav_to('/pitched-roof-mounting/overview')}}">Pitched Roofs</a>
+                    <span class="carrot"></span>
+                    <ul id="rm_sub_menu">
+                        <div class="main-items-container">
+                            <li><a ng-href="{{wp_nav_to('/pitched-roof-mounting/overview')}}">Overview</a></li>
+                            <li><a ng-href="{{wp_nav_to('/pitched-roof-mounting/360view')}}">360 View</a></li>
+                            <li><a ng-href="{{wp_nav_to('/pitched-roof-mounting/features')}}">Features</a></li>
+                            <li><a ng-href="{{wp_nav_to('/pitched-roof-mounting/training')}}">Training</a></li>
+                            <li><a ng-href="{{$root.HOST_URL}}/pitched-roof-mounting/resources">Documents & Resources</a></li>
+                        </div>
+                        <div class="new-items-container"></div>
+                        <div class="bootstrap_main_nav_button_container" style="position: relative; top: -6px;">
+
+                            <input class="main_nav_configure_button" ng-click="goTo('/asce710/landing_page?asce=7.10&amp;type=pitched&amp;generator=DA')" value="Design Assistant" type="button">
+
+
+
+                            <input class="main_nav_purchase_button" ng-click="goTo('/distributors')" value="Request a Quote" type="button">
+
+
+                            <div class="clear"></div>
+                        </div>
+                    </ul>
+                </li>
+                <li>
+                    <a ng-href="{{wp_nav_to('/flat-roof-mounting/overview')}}">Flat Roofs</a>
+                    <span class="carrot"></span>
+                    <ul id="brm_sub_menu">
+                        <div class="main-items-container">
+                            <li><a ng-href="{{wp_nav_to('/flat-roof-mounting/overview')}}">Overview</a></li>
+                            <li><a ng-href="{{wp_nav_to('/flat-roof-mounting/360view')}}">360 View</a></li>
+                            <li><a ng-href="{{wp_nav_to('/flat-roof-mounting/features')}}">Features</a></li>
+                            <li><a ng-href="{{wp_nav_to('/flat-roof-mounting/training')}}">Training</a></li>
+                            <li><a ng-href="{{$root.HOST_URL}}/flat-roof-mounting/resources">Documents & Resources</a></li>
+                        </div>
+                        <div class="bootstrap_main_nav_button_container flat-roof">
+
+                            <input class="main_nav_configure_button" ng-click="goTo('/asce710/landing_page?asce=7.10&amp;type=flat&amp;generator=DA')" value="Design Assistant" type="button">
+
+
+
+                            <input class="main_nav_purchase_button" ng-click="goTo('/distributors')" value="Request a Quote" type="button">
+
+
+                            <div class="clear"></div>
+                        </div>
+                    </ul>
+                </li>
+                <li>
+                    <a ng-href="{{wp_nav_to('/ground-based-mounting/overview')}}">Ground-based</a>
+                    <span class="carrot"></span>
+                    <ul id="gm_sub_menu">
+                        <div class="main-items-container">
+                            <li><a ng-href="{{wp_nav_to('/ground-based-mounting/overview')}}">Overview</a></li>
+                            <li><a ng-href="{{wp_nav_to('/ground-based-mounting/360view')}}">360 View</a></li>
+                            <li><a ng-href="{{wp_nav_to('/ground-based-mounting/techspecs')}}">Tech Specs</a></li>
+                            <li><a ng-href="{{$root.HOST_URL}}/ground-based-mounting/resources">Documents & Resources</a></li>
+                        </div>
+                        <div class="bootstrap_main_nav_button_container">
+
+                            <input class="main_nav_configure_button" ng-click="goTo('/asce710/landing_page?asce=7.10&amp;type=mount&amp;generator=DA')" value="Design Assistant" type="button">
+
+
+
+                            <input class="main_nav_purchase_button" ng-click="goTo('/distributors')" value="Request a Quote" type="button">
+
+
+                            <div class="clear"></div>
+                        </div>
+                    </ul>
+                </li>
+                <li>
+                    <a ng-href="{{wp_nav_to('/company/events_training')}}">Training</a>
+                </li>
+                <li>
+                    <a ng-href="{{wp_nav_to('/company/about')}}" id="companyId">Company</a>
+                    <span class="carrot"></span>
+                    <ul id="company_sub_menu">
+                        <div class="main-items-container">
+                            <li><a ng-href="{{wp_nav_to('/company/about')}}">About Us</a></li>
+                            <li><a ng-href="{{wp_nav_to('/company/people')}}">People</a></li>
+                            <li><a ng-href="{{wp_nav_to('/company/careers')}}">Careers</a></li>
+                            <li><a ng-href="{{wp_nav_to('/contacts/new')}}">Contact</a></li>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

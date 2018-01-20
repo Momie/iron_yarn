@@ -1,0 +1,201 @@
+<div ng-controller="ArrayFxCtrl" ng-class="{fullscreen: isFullScreen}">
+    <div class="panel panel-default array-panel" ng-keyup="onKeyUpPanel($event)" tabindex="1">
+        <div id="tools">
+            <h3>Arrays</h3>
+            <div class="dimension-block">
+                <span>DIMENSIONS</span>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-checked="true">
+                    <label class="onoffswitch-label" for="myonoffswitch" ng-click="goShowDimensions()">
+                        <span>on</span>
+                    </label>
+                </div>
+            </div>
+            <section class="links" ng-init="show=false" click-out="hideSelector()">
+                <a class="btn btn-default" role="button" ng-click="onSelectorClick($event)" ng-disabled="!project.info.modules.model.id || disableArrayBtn" id="addPanel">
+                    <i class="icon ion-plus"></i>
+                    <img src="assets/images/grid.svg">
+                    <span>ARRAY</span>
+                </a>
+                <div id="NotifeEmpty" class="">
+                    <div class="notif-header">
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button" ng-click="closeNotifeEmpty($event)"><img src='assets/images/red-close.png'></button>
+                        <img src='assets/images/red-warning.png'>
+                        <span>Alert</span>
+                    </div>
+                    <div class="notif-body">
+                        No arrays have been created yet. Please create an array first before goining to the Quote tab.
+                    </div>
+                    <div class="flech">
+                    </div>
+                </div>
+                <a class="btn btn-default -orient-btn" role="button" ng-click="onOrientClick($event)" id="orientPanel">
+                    <i class="icon icon-rotate-cw"></i>
+                    <span>ORIENT</span>
+                </a>
+                <div class="save-delete-block">
+                    <a class="btn btn-default" role="button" ng-click="onSaveClick($event)" ng-disabled="!project.info.modules.model.id || disableSaveBtn" id="save">
+                        <i class="icon icon-floppy-disk" ng-style="{'color': !isSaved ? '#4A90E2' : '#78807A'} "></i>
+                        <span>SAVE</span>
+                    </a>
+                    <a class="btn btn-default" role="button" ng-click="onDeleteClick($event)" ng-disabled="!project.info.modules.model.id || disableDeleteBtn" id="delete">
+                        <i class="icon icon-trash"></i>
+                        <span>DELETE</span>
+                    </a>
+                </div>
+                <!--                 <div class="zone-block">
+                    <div class="title">ROOF ZONES</div>
+                    <div>
+                        <img src="assets/images/zone-1.png" class="zone1_cursor" ng-click="chose_zone(1)">
+                        <img src="assets/images/zone-2.png" class="zone2_cursor" ng-click="chose_zone(2)">
+                        <img src="assets/images/zone-3.png" class="zone3_cursor" ng-click="chose_zone(3)">
+                        <img src="assets/images/zone-4.png" class="zone4_cursor" ng-click="chose_zone(4)">
+                    </div>
+                </div> -->
+                <div class="selecter" ng-class="{show:selectorshow}" ng-init="manual=false">
+                    <div class="manual-top" ng-show="!manual">
+                        <p class="hover-col-row">{{hover.row}}
+                            <span>x</span> {{hover.col}}</p>
+                        <div class="btn-group btn-group-pos">
+                            <div class="component-item  btn btn-default btnportrait" ng-click="changeOrientation('portrait');" ng-class="{'active': orientation === true }">
+                                <img src="assets/images/portrait_array.svg">
+                            </div>
+                            <div class="component-item  btn btn-default btnlandscape" ng-click="changeOrientation('landscape');" ng-class="{'active': orientation === false}">
+                                <img src="assets/images/landscape_array.svg">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="manual=!manual" ng-style="{'margin-right' : (expand ? (orientation === true ? '-353px' : '-383px') : (orientation === true ? '-142px' : '-120px')) }">ENTER MANUALLY</button>
+                    </div>
+                    <div class="Grid" ng-show="manual" ng-click="manual = !manual"><img src="assets/images/Arrow.png"> Grid</div>
+                    <div class="boxs-zone slide-right" ng-if="!manual  && orientation === true">
+                        <div class="zone" id="zone" ng-style="{'width' :widthHovered,'height':heightHovered}"></div>
+                        <div class="boxs" ng-mouseleave="hovered(-1,-1)">
+                            <div ng-repeat="i in range(pGridRow) track by $index">
+                                <b ng-repeat="i in range(pGridCol) track by $index" ng-click="addPanel($parent.$index+1,$index+1, $event)" ng-mouseover="hovered($index,$parent.$index)"></b>
+                            </div>
+                        </div>
+                        <span class="icon" ng-click="expandGrid()"><img src="assets/images/Icone.png"></span>
+                    </div>
+                    <div class="boxs-zone slide-right landscape" ng-if="!manual && orientation === false">
+                        <div class="zone" id="zone" ng-style="{'width' :widthHovered,'height':heightHovered}"></div>
+                        <div class="boxs" ng-mouseleave="hovered(-1,-1)">
+                            <div class="landscapeDiv" ng-repeat="i in range(lGridRow) track by $index">
+                                <b ng-repeat="i in range(lGridCol) track by $index" ng-click="addPanel($parent.$index+1,$index+1, $event)" ng-mouseover="hovered($index,$parent.$index)"></b>
+                            </div>
+                        </div>
+                        <span class="icon" ng-click="expandGrid()"><img src="assets/images/Icone.png"></span>
+                    </div>
+                    <div class="manual-zone slide-left" ng-if="manual">
+                        <form class="form-inline manual-form">
+                            <div class="form-group">
+                                <label for="column">Columns</label>
+                                <label for="row">Rows</label>
+                            </div>
+                            <div class="form-group row">
+                                <input type="number" class="form-control" id="column" ng-model="panelInput.Column" ng-class="{'error-add': panelInput.Column < 0 || panelInput.Column == e }">
+                                <input type="number" class="form-control" id="row" ng-model="panelInput.Row" ng-class="{'error-add': panelInput.Row < 0 || panelInput.Row == e}">
+                                <button class="btn btn-default" ng-click="addPanel(panelInput.Row,panelInput.Column)" ng-disabled="panelInput.Row <=0 || panelInput.Column <= 0 ||panelInput.Column == e || panelInput.Row == e ">Create Array</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <div style="clear: both;"></div>
+        </div>
+        <div id="holderContainer" ng-style="{'height': (panelHeight + 'px')}">
+<!--             <div class="exceed-alert" ng-if="exceededCan">
+                <img src="assets/images/red-warning.png">
+                <span>Module(s) exceed Max Cantilever</span>
+            </div> -->
+            <!-- <div class="array-editor-hider noselect" ng-if="!project.info.modules.model.id"></div> -->
+            <svg width="100%" height="464" id="holder" ng-disabled="!project.info.modules.model.id">
+                <!-- <filter id="drop-shadow">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+                </filter> -->
+                <defs>
+                    <filter id="drop-shadow" height="130%">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="blur"></feGaussianBlur>
+                        <feOffset in="blur" dx="0" dy="1" result="offsetblur"></feOffset>
+                        <feComponentTransfer>
+                            <feFuncA in="blur" type="linear" slope="0.6"></feFuncA>
+                        </feComponentTransfer>
+                        <feMerge>
+                            <feMergeNode></feMergeNode>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                    </filter>
+                    <pattern id="zone1" x="0" y="0" patternUnits="userSpaceOnUse" height="20" width="20">
+                        <image x="0" y="0" xlink:href="assets/images/zone1-bc.png"></image>
+                    </pattern>
+                    <pattern id="zone1-r" x="0" y="0" patternUnits="userSpaceOnUse" height="20" width="20">
+                        <image x="0" y="0" xlink:href="assets/images/zone1-bc-r.png"></image>
+                    </pattern>
+                    <pattern id="zone2" x="0" y="0" patternUnits="objectBoundingBox" height="30" width="94">
+                        <image x="-30" y="0" xlink:href="assets/images/zone2-bc.png"></image>
+                    </pattern>
+                    <pattern id="zone3" x="0" y="0" patternUnits="userSpaceOnUse" height="20" width="20">
+                        <image x="0" y="0" xlink:href="assets/images/zone3-bc.png"></image>
+                    </pattern>
+                        <g id="mountR" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <path d="M3,6 C4.65685425,6 6,4.65685425 6,3 C6,1.34314575 4.65685425,-1.13686838e-13 3,-1.13686838e-13 L-1.13686838e-13,-1.13686838e-13 C-1.13686838e-13,-1.13686838e-13 -1.13619184e-13,1.26454995 -9.58417373e-14,3 C-7.87772625e-14,4.65685425 1.34314575,6 3,6 Z" id="Oval" fill="#FF0000" transform="translate(3.000000, 3.000000) scale(-1, 1) translate(-3.000000, -3.000000) "></path>
+                        </g>
+                        <g id="mountL" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <path d="M3,6 C4.65685425,6 6,4.65685425 6,3 C6,1.34314575 4.65685425,-8.52651283e-14 3,-8.52651283e-14 L-5.68434189e-14,-8.52651283e-14 C-5.68434189e-14,-8.52651283e-14 -5.67757646e-14,1.26454995 -3.89983185e-14,3 C-2.19338436e-14,4.65685425 1.34314575,6 3,6 Z" id="Oval" fill="#FF0000"></path>
+                        </g>
+                    <pattern id="zone4" x="0" y="0" patternUnits="userSpaceOnUse" height="20" width="20">
+                        <image x="0" y="0" xlink:href="assets/images/zone4-bc.png"></image>
+                    </pattern>
+                    <marker id="t" markerWidth="4" markerHeight="4" orient="auto" refY="2">
+                        <path d="M0,0 L4,2 0,4" />
+                    </marker>
+                    <marker id='arrow' orient="auto" markerWidth='2' markerHeight='4' refX='0.1' refY='2'>
+                        <!-- triangle pointing right (+x) -->
+                        <path d='M0,0 V4 L2,2 Z' fill="red" />
+                    </marker>
+                </defs>
+            </svg>
+            <div id="new-container" ng-style="{'bottom': ((413 - panelHeight) + 'px')}">
+                <div class="new-sub-container">
+                    <div class="zoom-controle zoom-in">
+                        <span ng-click="!!project.info.modules.model.id && zoomIn()" ng-disabled="!project.info.modules.model.id"><img src="assets/images/plus.png"></span>
+                    </div>
+                    <div class="zoom-controle zoom-out">
+                        <span class="dezoom" ng-click="!!project.info.modules.model.id && zoomOut()" ng-disabled="!project.info.modules.model.id"><img src="assets/images/moin.png"></span>
+                    </div>
+                    <div class="full-screen-btn">
+                        <span ng-click="goFullScreen()" ng-disabled="!project.info.modules.model.id">
+                    <img ng-src="{{isFullScreen ? 'assets/images/simplescreen.png' : 'assets/images/fullscreen.png'}}">
+                  </span>
+                    </div>
+                    <div class="container-all-btn">
+                        <span ng-click="showAllPanels($event)" ng-disabled="!project.info.modules.model.id"><img src="assets/images/eye.png"></span>
+                    </div>
+                    <div class="fix-click-zoom"></div>
+                    <div class="container-svg-all">
+                        <svg id="svgAllId" width="184" height="81">
+                        </svg>
+                    </div>
+                    <div id="sohwHideArrayBtn" ng-click="showHideMenuSelect();" ng-style="{'right' : (Math.max([(panelWidth - 250)/2, 300]) + 'px')}">
+                        ARRAYS &nbsp<img ng-src="{{!showMenuArray ? 'assets/images/upp.png' : 'assets/images/down.png'}}">
+                    </div>
+                    <div id="menuSelectArray">
+                        <div ng-style="{'width': (panelWidth + 'px')}"></div>
+                        <div class="previous-container">
+                            <div class="previous-btn" ng-click="sowPreviewItem($event)" ng-show="pannelIndex > 0">Previous</div>
+                        </div>
+                        <div class="scroll-container">
+                            <div class="container-panels-labels" ng-style="{'margin-left': (-pannelIndex * 60)+px} ">
+                                <div class="item" ng-repeat="item in project.info.arrays.objects track by $index" id="select_{{item._id}}" ng-click="centerPanel($event, item._id)" ng-class="{'panelHighlighted' : item._id == selectedPanel}">
+                                    <br ng-if="!item.name"><span>{{item.name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="next-container">
+                            <div class="next-btn" ng-click="sowNextItem($event)" ng-show="pannelIndex < project.info.arrays.objects.length - 12">Next</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

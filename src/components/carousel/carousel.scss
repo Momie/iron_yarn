@@ -1,0 +1,71 @@
+#feature-intro-carousel {
+  padding: 0 50px;
+
+  .carousel-inner {
+    margin-bottom: 40px;
+
+    .item {
+      text-align: center;
+
+      .subhead {
+        color: #194da0;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 0 0 15px 0;
+      }
+
+      img {
+        display: inline-block;
+      }
+    }
+  }
+
+  a.carousel-control {
+    width: 30px;
+    background-image: none;
+    text-shadow: none;
+
+    span {
+      color: #999;
+    }
+  }
+
+  .carousel-indicators {
+    bottom: -50px;
+
+    li {
+      background-color: rgba(0, 0, 0, .4);
+      border: 0;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, .6);
+      }
+    }
+
+    li.active {
+      background-color: rgba(0, 0, 0, .9);
+    }
+  }
+}
+
+.feature-intro-modal {
+  .modal {
+    text-align: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    .modal:before {
+      display: inline-block;
+      vertical-align: middle;
+      content: " ";
+      height: 100%;
+    }
+  }
+
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width: 800px;
+  }
+}

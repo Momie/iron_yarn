@@ -1,0 +1,122 @@
+<div class="arrays-panel-container panel panel-default" ng-controller="arrayMountCtrl">
+    <div class="panel-body arrays-panel">
+        <div class="row">
+            <section>
+                <h3 class="title">Arrays
+                  <sup>
+                    <i class="ion-ios-information-outline" ng-click="toggleModal('missing')"></i>
+                  </sup>
+                </h3>
+            </section>
+        </div>
+        <div class="row arrays-panel-item">
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 row no-padding">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 no-padding-right">
+                  <span>MODULES UP</span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <span>COLUMNS
+                    <sup>
+                      <i class="ion-ios-information-outline" ng-click="toggleModal('columns')"></i>
+                    </sup>
+                  </span>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  <span>REPEATS
+                    <sup>
+                      <i class="ion-ios-information-outline" ng-click="toggleModal('repeats')"></i>
+                    </sup>
+                  </span>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <span>AREA
+                  <sup>
+                    <i class="ion-ios-information-outline" ng-click="toggleModal('area')"></i>
+                  </sup>
+                </span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            </div>
+        </div>
+        <div class="row arrays-panel-item" ng-if="!projectMount.info.arrays.arrays.length || (projectMount.info.arrays.arrays.length && !projectMount.info.arrays.arrays[0].columns) ">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 row no-padding">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <select  ng-model="defaultSubbaray.modules_up">
+                        <option ng-repeat="range in projectMount.info.arrays.modules_range" value="{{range}}" ng-selected="defaultSubbaray.modules_up == range">{{range}}</option>
+                    </select>
+                    <div id="NotifeEmpty" class="">
+                    <div class="notif-header">
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button" ng-click="closeNotifeEmpty($event)"><img src='assets/images/red-close.png'></button>
+                        <img src='assets/images/red-warning.png'>
+                        <span>Alert</span>
+                    </div>
+                    <div class="notif-body">
+                        No arrays have been created yet. Please create an array first before goining to the Quote tab.
+                    </div>
+                    <div class="flech">
+                    </div>
+                </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <select  ng-model="defaultSubbaray.arrays.columns">
+                        <option ng-repeat="(key,column) in projectMount.info.arrays['colunms_range'] | orderBy:key" value="{{column}}" ng-selected="defaultSubbaray.arrays.columns == Number(column)">{{column}}</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <input type="number" min="0" class="ng-pristine ng-valid ng-touched rowsInputNumber" ng-model="defaultSubbaray.arrays.repeats">
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                  <div class= "area" > sq ft (EW: ' "  x  NS: ' ") </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="delete">
+                  <p ng-click="reset()" class="p-delete reset"> <span>Reset</span></p>
+                </div>
+        </div>
+        <div class="row arrays-panel-item" ng-if="projectMount.info.arrays.arrays.length && projectMount.info.arrays.arrays[0].columns" ng-repeat="elmt in projectMount.info.arrays.arrays track by $index">
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 row no-padding">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <select  ng-if="$index == 0" ng-model="projectMount.info.arrays.modules_up">
+                        <option ng-repeat="range in projectMount.info.arrays.modules_range" value="{{range}}" ng-selected="projectMount.info.arrays.modules_up == range">{{range}}</option>
+                    </select>
+                    <p ng-if="$index >0" class="p-module-up">{{projectMount.info.arrays.modules_up}}</p>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <select  ng-model="elmt.columns">
+                          <option ng-repeat="column in projectMount.info.arrays['colunms_range'] track by $index |orderBy:column " value="{{column}}" ng-selected="elmt.columns == column">{{column}}</option>
+                      </select>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <input type="number" min="0" class="ng-pristine ng-valid ng-touched rowsInputNumber" ng-model="elmt.repeats">
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                  <div class="area">{{projectMount.info.arrays.arrays[$index].area}}</div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="delete">
+                  <p ng-click="delete($index)" class="p-delete"><i class="icon ion-android-close"></i>
+                      <span>Delete</span>
+                  </p>
+                </div>
+        </div>
+        <div class="row">
+          <hr class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        </div>
+          <br>
+            <div class="row arrays-panel-item-add">
+                <div  class="col-lg-2 col-md-2 col-sm-3 col-xs-3 info-item" name="add">
+                    <p class="add-button" ng-click="addSubarray(projectMount.info.arrays.modules_up,2,1)"><i class="icon ion-android-add"></i>
+                        <span>Subarray</span>
+                    </p>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9 info-item" id="save" >
+                    <div class="add-button" ng-disabled="isLoading === true" ng-click="saveSubarray()" >
+                        <span>Save</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+    </div>

@@ -1,0 +1,102 @@
+<div class="panel panel-default" ng-controller="ArrayDetailCtrl" id="arrayDetailContainer">
+          <h3>Array Details</h3>
+          <div class="panel-body subarray-panel">
+              <div class="subarray-option">
+                  <!--<label for="rail-length">
+                      <select class="form-control" name="lentgh" ng-model="$root.project.rails.length">
+                          <option value="stock">Stock (11", 14", 17")</option>
+                          <option value="stock0">Stock (11", 14", 17")</option>
+                          <option value="stock1">Stock (11", 14", 17")</option>
+                      </select>
+                  </label>-->
+
+                  <div id="dropdownArrayDetail"  class="checkbox-dropdown" ng-class="{'is-active':isActive}" ng-disabled="!project.info.modules.model.id">
+                      <div class="rail-lengths" ng-class="{'rail-lengths-up':isActive}" ng-click="toggleRailsLengths($event)" ng-disabled="!project.info.modules.model.id">
+                          Rail Lengths:
+                        {{selectedLengths }}
+                      </div>
+
+                      <ul class="checkbox-dropdown-list stock" ng-show="isActive">
+                          <li class="lengthsLbl">Stock<br/></li>
+                          <li ng-repeat="length in (allLengths | filter:{custom:false} ) track by $index">
+                              <input class="checkbox" id="chosenLength{{$index}}" ng-click="toggleLength(length)" ng-model="length.checked" type="checkbox" value={{length.value}}/>
+                              <label class="checkbox-label" for="chosenLength{{$index}}">{{length.value}}'</label>
+                          </li>
+                      </ul>
+
+                      <ul class="checkbox-dropdown-list custom" ng-show="isActive">
+                          <li class="lengthsLbl">Custom</li>
+                          <li ng-repeat="length in (allLengths | filter:{custom:true} ) track by $index">
+                              <input class="checkbox" id="customLength{{$index}}" ng-checked="length.checked" ng-click="toggleLength()" ng-model="length.checked" type="checkbox" value={{length.value}}/>
+                              <label class="checkbox-label" for="customLength{{$index}}">{{length.value}}'</label>
+                          </li>
+                      </ul>
+                  </div>
+                  <!--<label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" ng-value="true" ng-model="project.info.minimize_rail_waste"> Minimal rail waste
+                  </label>
+                  <label class="radio-inline">
+                      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" ng-value="true" ng-model="project.info.minimize_splice"> Minimize Splices
+                  </label>-->
+              </div>
+              <table class="table subarray-details">
+                  <thead>
+                      <tr>
+                          <th>Array</th>
+                          <th>Block</th>
+                          <th>Rows</th>
+                          <th>ROW LENGTH
+                              <sup>
+                                  <i class="ion-ios-information-outline" ng-click="toggleModal('Required_Rail')"></i>
+                              </sup>
+                          </th>
+                          <th>provided rail
+                              <sup>
+                                  <i class="ion-ios-information-outline" ng-click="toggleModal('Provided_Rail')"></i>
+                              </sup>
+                          </th>
+                          <th>attach
+                              <sup>
+                                  <i class="ion-ios-information-outline" ng-click="toggleModal('Attach_Pts')"></i>
+                              </sup>
+                          </th>
+                          <th ng-if="project.info.ufo">Clamps</th>
+                          <th ng-if="!project.info.ufo">mid clamps</th>
+                          <th ng-if="!project.info.ufo">end clamps</th>
+                          <th>splices</th>
+                      </tr>
+                  </thead>
+
+                  <tbody class="subarray-group" ng-class="{hovered: hovered}" ng-mouseleave="hovered=false" ng-mouseover="hovered=true" ng-repeat="group in subArrayGroups track by $index">
+                      <tr>
+                          <td class="subarray-group-name" rowspan="{{group.length+1}}">{{group[0].group_name}}</td>
+                      </tr>
+                      <tr ng-repeat="array in group">
+                          <!--<td>A</td>-->
+                          <td>
+                              <b ng-if="array.orientation=='portrait'" class="{{array.orientation}}" ng-repeat="i in range(array.size).slice(0, 8) track by $index"></b>
+                              <b ng-if="array.orientation=='landscape'"class="{{array.orientation}}" ng-repeat="i in range(array.size).slice(0, 5) track by $index"></b>
+
+                              <div ng-if="array.orientation=='portrait'" class="array-size" ng-show="array.size > 8">
+                                  <i class="icon ion-ios-more"></i>
+                                  ({{array.size}})
+                              </div>
+                              <div ng-if="array.orientation=='landscape'" class="array-size array-size-land" ng-show="array.size > 5">
+                                  <i class="icon ion-ios-more"></i>
+                                  ({{array.size}})
+                              </div>
+                          </td>
+                          <td>{{array.times}}</td>
+                          <td>{{array.req_rail}}</td>
+                          <td>{{array.provided_rail}}</td>
+                          <td>{{array.attach_pts}}</td>
+                          <td ng-if="project.info.ufo">{{array.ufo_clamps}}</td>
+                          <td ng-if="!project.info.ufo">{{array.mid_clamps}}</td>
+                          <td ng-if="!project.info.ufo">{{array.end_clamps}}</td>
+                          <td>{{array.splices}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+  <!-- end Subarray section -->
+</div>

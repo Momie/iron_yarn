@@ -1,0 +1,137 @@
+<div>
+<!--   <div ng-if="project.info.download_pdf.toString() == '[object Object]' || projectMount.info.download_pdf.toString() == '[object Object]'">
+    <button id="button_quote" ng-click="sea.openQuote($event)" class="quote-btn" name="requestQuote">
+      <img src="assets/images/request.png" style="margin-left:0px;">Request Quote
+    </button>
+    <search-distributor ng-show="sea.distBack"></search-distributor>
+  </div> -->
+    <!--***************modal validation**********************************-->
+    <div id="myModalValidation" class="modal-help modal fade" ng-click="sea.hideModals()">
+        <div class="modal-dialog bg-success">
+            <div class="modal-content request-users">
+                <div class="modal-header modal-header-help ">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                    <h4 class="modal-title">Request Quote</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="top-padding-content">Selected distributor</p>
+                    <h4><strong id="dist-name" ng-bind="selectedDstrib || $parent.sea.name"></strong></h4>
+                    <p>
+                        <!-- <div class="edit-btn" id="linkChange" ng-show="sea.permissionToChange" ng-click="sea.changeDistributor()"> -->
+                        <div class="edit-btn" id="linkChange"  ng-click="sea.changeDistributor()">
+                          <i class="icon ion-edit"></i>
+                          <span>EDIT</span>
+                        </div>
+                        <div id="idChangeDistributor"ng-show="sea.showChangeDistributor" class="change-distributor">
+                            <search-distributor></search-distributor>
+                        </div>
+                    </p>
+                    <button class="submit-quote-btn" aria-hidden="true" data-dismiss="modal" name="submitValidation" ng-click="sea.sendDistributor()">Submit Quote Request</button>
+                </div>
+                <div class="modal-footer">
+                    Please allow for 24-48 hours to be contacted by a representative.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--****************modal register*************************************-->
+
+    <div id="myModalRegister" class="modal-help modal fade ">
+        <div class="modal-dialog bg-success">
+            <form name="addUser">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-help ">
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
+                        <h4 class="modal-title">Register To Receive Quotes</h4>
+                    </div>
+                    <div class="modal-body form-group">
+                        <p>Please register as a Design Assistant user, and you will be able to start receiving quotes from our authorized distributors.
+                        Already registred? <a ng-href="{{$root.HOST_URL}}/users/sign_in" target="_blank">Sign In</a> to request a quote.</p>
+                        <div class="row row-form">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>FIRST NAME </label>
+                                <input type="text" ng-model="sea.users.first_name" name="firstName" ng-class="{'error-form' : sea.showError && addUser.firstName.$error.required}" required />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>LAST NAME </label>
+                                <input type="text" ng-model="sea.users.last_name" name="lastName" ng-class="{'error-form' : sea.showError && addUser.lastName.$error.required}" required/>
+
+                            </div>
+                        </div>
+
+                        <div class="row row-form">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>EMAIL </label>
+                                <input id="email" type="email" ng-model="sea.users.email" name="email" ng-class="{'error-form' : sea.showError && (addUser.email.$error.required || addUser.email.$error.pattern)}" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" required />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>PHONE </label>
+                                <input id="phone"  type="text" ng-model="sea.users.phone" name="phone" ng-class="{'error-form' : sea.showError && (addUser.phone.$error.required || addUser.phone.$error.pattern)}" ng-pattern="/^\+?[\d\- \(\)]+$/" required />
+                            </div>
+                        </div>
+
+                        <div class="row row-form">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>COMPANY </label>
+                                <input type="text" ng-model="sea.users.claimed_company" name="company" ng-class="{'error-form' : sea.showError && addUser.company.$error.required}" required/>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>COMPANY TYPE </label>
+                                <select id="companyTypeId" class="form-control"  ng-init="sea.users.company_type='Installer | Integrator | EPC'" ng-model="sea.users.company_type" name="companyType" ng-class="{'error-form' : (sea.showError && addUser.companyType.$error.required)}" required>
+                                   <option value="" disabled selected hidden>Please Select</option>
+                                    <option value="Installer | Integrator | EPC" >Installer | Integrator | EPC</option>
+                                    <option value="Distributor | Reseller">Distributor | Reseller</option>
+                                    <option value="OEM">Manufacturer</option>
+                                    <option value="Property Owner | Host">Property Owner | Host</option>
+                                    <option value="Financier | Consultant">Financier | Consultant</option>
+                                    <option value="Education | Non-profit">Education | Non-profit</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row row-form">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>PASSWORD </label>
+                                <input type="password" ng-model="sea.users.password" name="password" ng-class="{'error-form' : sea.showError && addUser.password.$error.required}" required />
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <label>CONFIRM PASSWORD </label>
+                                <input id="inputPasswordConfirm" type="password" ng-model="sea.users.confirm_password" name="confirmPassword" ng-class="{'error-form' : (sea.showError && (addUser.confirmPassword.$error.required || sea.users.password !== sea.users.confirm_password))}" required />
+                            </div>
+                        </div>
+                        <div class="accept-terme">
+                          <input class="chexbox" type="checkbox" name="" ng-model="sea.accept_terme" ><p> I accept the IronRidge <a ng-href="{{$root.HOST_URL}}/account/terms_of_service" target="_blank"> Terms of Service</a></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button aria-hidden="true" data-dismiss="modal" name="cancelRegister" ng-click="sea.cancel()">Cancel</button>
+                        <button ng-disabled="!sea.accept_terme" class="button-okay" name="submitRegister" ng-click="sea.createUser()">Submit</button>
+                        <p>Note: By selecting Submit, we will automatically forward your project to
+                            <strong id="dis-name-register" ng-bind="$parent.sea.name"></strong><a id="linkChangeRegister"  ng-click="sea.changeDistributor()">&nbsp;change </a> for quoting</p>
+                    </div>
+                    <div ng-show="sea.showChangeDistributor" class="change-distributor-register">
+                        <search-distributor></search-distributor>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--******************************RQconfirmation ***********************-->
+    <div class="modal-layer">
+        <div ng-show="sea.RQ" class="request-confirmation">
+            <!-- <div class="close"><i class="icon ion-android-close" ng-click="sea.close()"></i></div> -->
+            <div class="row" >
+              <img class="img-Oval" src="assets/images/Oval.png" />
+              <img class="img-checkmark" src="assets/images/checkmark.png" />
+            </div>
+            <h3>Success!</h3>
+            <h4>Your quote request has been successfully sent to
+            <strong id="rq-name-dist" ng-bind="selectedDstrib"></strong></h4>
+                    <!-- ! You should be receiving an email confirmation shortly. -->
+        </div>
+    <div>
+</div>

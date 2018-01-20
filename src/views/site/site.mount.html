@@ -1,0 +1,153 @@
+<div class="container-fluid container-fluid-mount site-view"  ng-init="initiNavBar();" ng-controller="SiteCtrlMount">
+    <modal-help title="modal help"></modal-help>
+    <!-- start location section -->
+    <div class="row push-up">
+            <div class="panel panel-default">
+                <h3 >Project</h3>
+                <div class="panel-body container-win-ground">
+                    <div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
+                        <div class="input-group">
+                            <label for="name">project name </label>
+                            <input class="{{locationError}}  form-control"  id="project_name_mount" ng-blur=checkLocationUpdate() ng-keyup="checkLocation()" ng-model="projectMount.info.location_wind_and_snow.site_name" placeholder="Enter a name for your project" required type="text">
+                      </div>
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
+                        <div class="input-group">
+                            <label for="name">Zip code
+                                <sup>
+                                    <i class="ion-ios-information-outline" ng-click="toggleModal('Zip_Code')"/>
+                                </sup>
+                            </label>
+                            <input class="{{zipCodeError}} form-control" id="zipcode_mount" maxlength="5" ng-disabled="!projectMount.info.location_wind_and_snow.site_name" ng-keyup="checkZip()" ng-model="projectMount.info.location_wind_and_snow.zip_code" required type="text">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <div>
+                          <label for="name">City,State</label>
+                        </div>
+                        <div class="input-group" ng-show="location || projectMount.info.location_wind_and_snow.city_state">
+                            <h4 class="{{zipCodeMessageError}} error-location-msg" id="locationResult">{{location || projectMount.info.location_wind_and_snow.city_state}}</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 container-win-speed">
+                        <div class="input-group">
+                            <div>
+                              <label for="name">Wind speed <span class="span-asce">(ASCE 7-10)</span>
+                                  <sup>
+                                      <i class="ion-ios-information-outline" ng-click="toggleModal('Wind_Speed')"></i>
+                                  </sup>
+                              </label>
+                            </div>
+                            <select class="form-control" ng-change="onWindSnowSelectMount()" ng-disabled="!projectMount.info.location_wind_and_snow.site_name || !projectMount.info.location_wind_and_snow.city_state" ng-model="projectMount.info.location_wind_and_snow.wind_speed">
+                                <option ng-repeat="wind_speed in projectMount.info.location_wind_and_snow.available_winds">{{wind_speed}}</option>
+                            </select>
+                            <span class="unity">MPH</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 container-snow-load">
+                        <div class="input-group">
+                            <div>
+                              <label for="name">ground snow load
+                                  <sup>
+                                      <i class="ion-ios-information-outline"  ng-click="toggleModal('Ground_Snow_Load')"></i>
+                                  </sup>
+                              </label>
+                            </div>
+                            <select class="form-control" ng-change="onWindSnowSelectMount()" ng-disabled="!projectMount.info.location_wind_and_snow.site_name || !projectMount.info.location_wind_and_snow.city_state" ng-model="projectMount.info.location_wind_and_snow.ground_snow_load">
+                                <option ng-repeat="snow_load in projectMount.info.location_wind_and_snow.available_snows">{{snow_load}}</option>
+                            </select>
+                            <span class="unity">PSF</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 container-wind-exposure">
+                        <div class="input-group">
+                            <div>
+                              <label for="name">wind exposure
+                                  <sup>
+                                      <i class="ion-ios-information-outline" ng-click="toggleModal('Wind_Exposure')"></i>
+                                  </sup>
+                              </label>
+                            </div>
+                            <div class="radio margin-top-0">
+                                    <input checked name="wind" ng-change="onWindSnowSelectMount()" ng-disabled="!projectMount.info.location_wind_and_snow.site_name || !projectMount.info.location_wind_and_snow.city_state" ng-model="projectMount.info.location_wind_and_snow.wind_exposure" type="radio" value="B" class="regular-radio">
+                                    <label><span class="regular-span">B</span></label>
+                            </div>
+                            <div class="radio">
+                                    <input name="wind" ng-change="onWindSnowSelectMount()" ng-disabled="!projectMount.info.location_wind_and_snow.site_name || !projectMount.info.location_wind_and_snow.city_state" ng-model="projectMount.info.location_wind_and_snow.wind_exposure" type="radio" value="C" class="regular-radio">
+                                    <label><span class="regular-span">C</span></label>
+                            </div>
+                            <div class="radio">
+                                    <input name="wind" ng-change="onWindSnowSelectMount()" ng-disabled="!projectMount.info.location_wind_and_snow.site_name || !projectMount.info.location_wind_and_snow.city_state" ng-model="projectMount.info.location_wind_and_snow.wind_exposure" type="radio" value="D" class="regular-radio">
+                                    <label><span class="regular-span">D</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- end location section -->
+    <div class="row">
+        <div class="panel panel-default">
+           <div class="panel-body min-height">
+              <h3>Module </h3>
+              <div class="row container-module-item">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" id="selectManuf" ng-controller="ManufCtrl">
+                  <label>manufacturer</label>
+                    <ui-select ng-disabled="!projectMount.info.location_wind_and_snow.site_name || !projectMount.info.location_wind_and_snow.city_state" ng-keydown="selectManufKeyPress($event)" ng-keypress="selectManufKeyPress($event)" ng-model="selectedManuf" on-select="choose(selectedManuf)" theme="bootstrap"  ui-select-open-on-focus>
+                        <ui-select-match  placeholder="{{ projectMount.info.modules.manufacturer.name || 'Pick a manufacturer' }}">{{$select.selected.name}}</ui-select-match>
+
+                        <ui-select-choices class="background-col" repeat="manufacturer in manufacturs | filter: $select.search">
+                            <div ng-bind-html="manufacturer.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="ModelId">
+                  <label>model</label>
+                    <ui-select  ng-disabled="!projectMount.info.location_wind_and_snow.site_name || !projectMount.info.location_wind_and_snow.city_state|| projectMount.info.modules.manufacturer.name == 'Advent Solar'" ng-model="selectedModel" on-select="updateModel(selectedModel)" theme="bootstrap"  ui-select-open-on-focus>
+                      <ui-select-match  placeholder="{{ projectMount.info.modules.model.name || 'Pick a model' }}"><p ng-show="showselcted">{{$select.selected.name}}</p><p ng-show="showPickModel">Pick a model</p></ui-select-match>
+
+                        <ui-select-choices repeat="model in $root.models.response | filter: $select.search">
+                            <div ng-bind-html="model.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div class="marg-l-10">
+                      <h5 class="dimension" ng-if="projectMount.info.modules.dimensions">{{projectMount.info.modules.dimensions}} &nbsp;({{dimensions_mm}})</h5>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 color-radio">
+                  <div class="container-color-radio">
+                    <label>color</label>
+                  </div>
+                  <div>
+                    <div class="white-radio">
+                      <input id="clear-model-mount" ng-change="OnSelectColorMount()"  ng-model="projectMount.info.modules.panel_finish" type="radio" value="clear"/>
+                      <label for="clear-model-mount" ng-disabled="!projectMount.info.modules.manufacturer.id"><span></span></label>
+                    </div>
+                    <div class="black-radio">
+                      <input id="black-model-mount" ng-change="OnSelectColorMount()" ng-model="projectMount.info.modules.panel_finish" type="radio" value="black" />
+                      <label for="black-model-mount" ng-disabled="!projectMount.info.modules.manufacturer.id"><span></span></label>
+                    </div>
+                  </div>
+              </div>
+            </div>
+                <!-- <div class="col-sm-4">
+                  <label>dimensions</label>
+                    <h5 ng-if="projectMount.info.modules.dimensions">{{projectMount.info.modules.dimensions}} ({{projectMount.info.modules.dimensions_mm.replace("mm","").replace("mm","")}})</h5>
+                </div> -->
+            </div>
+
+        </div>
+    </div>
+
+
+  <!--  end module section -->
+    <div class="row push-down">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 middle">
+          <button class="btn btn-gray btn-md btn-block" id="goToDesign" ng-click="go()" type="button" tab-stop-M>
+          </button>
+        </div>
+    </div>
+</div>
+
+<!-- end wind & now section -->

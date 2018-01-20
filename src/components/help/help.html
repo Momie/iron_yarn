@@ -1,0 +1,17 @@
+<div id="mymodal"class="modal-help modal fade">
+    <div class="modal-dialog bg-success">
+        <div class="modal-content">
+            <div class="modal-header modal-header-help ">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button" >&times;</button>
+                <h4 class="modal-title" ng-bind-html="info.title"></h4>
+            </div>
+            <div class="modal-body">
+                <p ng-bind-html="info.content"></p>
+                <img ng-if="info.src" ng-src="{{info.src}}"/>
+            </div>
+            <div class="modal-footer">
+                <button aria-hidden="true" data-dismiss="modal">close</button>
+            </div>
+        </div>
+    </div>
+</div>

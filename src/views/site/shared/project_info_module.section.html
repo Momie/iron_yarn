@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body min-height">
+          <h3 class="h3-mount">Module </h3>
+
+          <div class="row container-module-item">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" id="selectManuf" ng-controller="ManufCtrl">
+                <label>manufacturer</label>
+                <ui-select ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-keydown="selectManufKeyPress($event)" ng-keypress="selectManufKeyPress($event)" ng-model="selectedManuf" on-select="choose(selectedManuf)" theme="bootstrap"
+                    ui-select-open-on-focus>
+                    <ui-select-match placeholder="{{ project.info.modules.manufacturer.name || 'Pick a manufacturer' }}">{{$select.selected.name}}</ui-select-match>
+
+                    <ui-select-choices style="background-color:#F7FAF8;" repeat="manufacturer in manufacturs | filter: $select.search">
+                        <div ng-bind-html="manufacturer.name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" id="ModelId">
+                <label>model</label>
+                <ui-select ng-disabled="!project.info.location.site_name || !project.info.location.city_state || project.info.modules.manufacturer.name == 'Advent Solar'" ng-model="selectedModel" on-select="updateModel(selectedModel)" theme="bootstrap" ui-select-open-on-focus>
+                    <ui-select-match placeholder="{{ project.info.modules.model.name || 'Pick a model' }}">
+                        <p ng-show="showselcted">{{$select.selected.name}}</p>
+                        <p ng-show="showPickModel">Pick a model</p>
+                    </ui-select-match>
+
+                    <ui-select-choices repeat="model in $root.models.response | filter: $select.search">
+                        <div ng-bind-html="model.name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+                <div class="marg-l-10">
+                    <!-- <h5 class="dimension" ng-if="project.info.modules.dimensions">{{project.info.modules.dimensions}} &nbsp;({{project.info.modules.dimensions_mm.replace("mm","").replace("mm","")}})</h5></div> -->
+                    <h5 class="dimension" ng-if="project.info.modules.dimensions">{{project.info.modules.dimensions}} &nbsp;({{dimensions_mm}})</h5>
+                </div>
+              </div>
+            <div ng-if="project_type != 'fx'" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 color-radio">
+                    <div class="container-color-radio">
+                      <label>color</label>
+                    </div>
+                    <div>
+                        <div class="white-radio">
+                            <input id="clear-model" ng-change="OnSelectColor()" ng-model="project.info.modules.panel_finish" type="radio" value="clear" />
+                            <label for="clear-model" ng-disabled="!project.info.modules.manufacturer.id"><span></span></label>
+                        </div>
+                        <div class="black-radio">
+                            <input id="black-model" ng-change="OnSelectColor()" ng-model="project.info.modules.panel_finish" type="radio" value="black" />
+                            <label for="black-model" ng-disabled="!project.info.modules.manufacturer.id"><span></span></label>
+                        </div>
+                    </div>
+              </div>
+            </div>
+            <!-- <div class="col-sm-4">
+              <label>dimensions</label>
+              <h5  ng-if="project.info.modules.dimensions">{{project.info.modules.dimensions}} ({{project.info.modules.dimensions_mm.replace("mm","").replace("mm","")}})</h5>
+          </div> -->
+        </div>
+
+    </div>
+</div>

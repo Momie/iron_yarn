@@ -1,0 +1,115 @@
+<div class="row subarrays-panel-container panel panel-default" ng-controller="subArrayCtrl">
+    <div class="panel-body subarrays-panel">
+        <div class="row">
+            <section>
+                <h3>Subarrays</h3>
+            </section>
+        </div>
+        <div class="row subarrays-panel-item">
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 subrarray-item">
+                <span>Columns</span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 subrarray-item">
+                <span>Rows</span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 subrarray-item">
+                <span>Orientation</span>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 subrarray-item">
+                <span>Area</span>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            </div>
+        </div>
+        <div>
+          <div  ng-if="!project.info.arrays.objects.length">
+              <div class="row subarrays-panel-item">
+
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                      <input type="number" min="0" class="ng-pristine ng-valid ng-touched columnsInputNumber" ng-model="defaultSubbaray.columns" >
+                    <div id="NotifeEmpty" class="">
+                    <div class="notif-header">
+                        <button aria-hidden="true" class="close" data-dismiss="modal" type="button" ng-click="closeNotifeEmpty($event)"><img src='assets/images/red-close.png'></button>
+                        <img src='assets/images/red-warning.png'>
+                        <span>Alert</span>
+                    </div>
+                    <div class="notif-body">
+                        No arrays have been created yet. Please create an array first before goining to the Quote tab.
+                    </div>
+                    <div class="flech">
+                    </div>
+                </div>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                      <input type="number" min="0" class="ng-pristine ng-valid ng-touched rowsInputNumber" ng-model="defaultSubbaray.rows">
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                      <div class="radio">
+                              <input class="input-radio" name="orientation-aaa" type="radio" ng-value="true" ng-model="defaultSubbaray.portrait">
+                              <label class="marg-left">Portrait </label>
+                      </div>
+                      <div class="radio">
+                              <input class="input-radio" name="orientation-aaa" type="radio" ng-value="false" ng-model="defaultSubbaray.portrait">
+                              <label class="marg-left"> Landscape</label>
+                      </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class= "area"> sq ft (EW: ' "  x  NS: ' ") </div>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="delete">
+                      <p ng-click="reset()" class="p-delete"><i class="icon ion-android-close"></i>
+                          <span>RESET</span>
+                      </p>
+                  </div>
+              </div>
+          </div>
+            <div  ng-if="project.info.arrays.objects.length" ng-repeat="elmt in project.info.arrays.objects track by $index">
+                <div class="row subarrays-panel-item">
+
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <input type="number" min="1" class="ng-pristine ng-valid ng-touched columnsInputNumber" ng-model="elmt.columns" >
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <input type="number" min="1" class="ng-pristine ng-valid ng-touched rowsInputNumber" ng-model="elmt.rows" >
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <div class="radio">
+                          <input class="input-radio" name="orientationP-{{$index}}" type="radio" ng-value="true" ng-model="elmt.portrait" >
+                          <label class="marg-left" for="orientationP-{{$index}}">Portrait </label>
+                        </div>
+                        <div class="radio">
+                            <input class="input-radio" name="orientationL-{{$index}}" type="radio" ng-value="false" ng-model="elmt.portrait" >
+                            <label class="marg-left" for="orientationL-{{$index}}"> Landscape</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                      <div class= "area">{{project.info.arrays.objects[$index].area}} sq ft (EW: {{project.info.arrays.objects[$index].ew_size.feet}}' {{project.info.arrays.objects[$index].ew_size.inches}}"  x  NS: {{project.info.arrays.objects[$index].ns_size.feet}}' {{project.info.arrays.objects[$index].ns_size.inches}}") </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="delete">
+                        <p ng-click="delete($index)" class="p-delete"><i class="icon ion-android-close"></i>
+                            <span>{{project.info.arrays.objects.length > 1 ? 'DELETE' : 'RESET'}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sep-item">
+                </div>
+            </div>
+            <div class="row subarrays-panel-item-add">
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 info-item" name="add">
+                    <p ng-click="addSubarray(defaultSubbaray.rows,defaultSubbaray.columns,true)" class="p-add"><i class="icon ion-android-add"></i>
+                        <span>SUBARRAY</span>
+                    </p>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-9 col-xs-9 info-item" id="save" >
+                    <div ng-click="saveSubarray()" class="p-add" ng-disabled="isLoading === true" >
+                        <span> SAVE</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>

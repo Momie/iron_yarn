@@ -1,0 +1,32 @@
+<div class="panel panel-default" id="arrayDetailFxContainer">
+  <h3>Array Details</h3>
+  <div class="panel-body subarray-panel">
+      <table class="table subarray-details">
+          <thead>
+              <tr>
+                  <th></th>
+                  <th>MODULES</th>
+                  <th>Orientation</th>
+                  <th>MOUNTS/FLASHINGS</th>
+                  <th>BRIDGES</th>
+                  <th>TRIM</th>
+                  <th>NORTH BRIDGE SCREWS</th>
+              </tr>
+          </thead>
+          <tbody class="subarray-group" ng-repeat="item in project.info.arrays_details.objects track by $index">
+              <tr>
+                  <td class="group-name">
+                    {{item.name}}
+                  </td>
+                  <td>{{item.modules}}</td>
+                  <td>{{item.portrait ? 'portrait' : 'landscape' }}</td>
+                  <td>{{item.mounts_flashing}}</td>
+                  <td>{{item.bridges}}</td>
+                  <td>{{item.trims}}</td>
+                  <td>{{item.north_bridge_screws}}</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+  <!-- end Subarray section -->
+</div>

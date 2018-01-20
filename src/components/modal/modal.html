@@ -1,0 +1,18 @@
+<div ng-controller="IronModal">
+    <div id="iron-modal" class="modal-help modal fade">
+        <div class="modal-dialog bg-success">
+            <div class="modal-content">
+                <div class="modal-header modal-header-help ">
+                    <button aria-hidden="true" class="close" data-dismiss="modal" type="button" >&times;</button>
+                    <h4 class="modal-title text-center">{{info.title}}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{info.content}}</p>
+                </div>
+                <div class="modal-footer" ng-show="info.close">
+                    <button aria-hidden="true" data-dismiss="modal">close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,177 @@
+<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 left-container">
+    <!-- start Accessories section -->
+    <div class="row push-up">
+        <div ng-show="project.info.ownership.shared" class="isshared">
+            <span>You are editing a project created by {{project.info.ownership.owner_name}}</span>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body cessori-panel-base">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3">
+                        <section>
+                            <h3>Accessories</h3>
+                        </section>
+                    </div>
+                    <div class="col-xs-6 col-sm-8 col-md-9 col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="inlineCheckbox1" ng-change="onAccessoriesSelect()" ng-model="project.info.accessories.wire_clips">Wire Clips
+                                </label>
+                                <sup>
+                                    <i class="ion-ios-information-outline" ng-click="toggleModal('Wire_Clips')"></i>
+                                </sup>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                <div class="accessory_w" style="margin:0;">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox2" ng-change="onAccessoriesSelect()" ng-model="project.info.accessories.end_caps"> End Caps
+                                    </label>
+                                    <sup>
+                                        <i class="ion-ios-information-outline" ng-click="toggleModal('End_Caps')"></i>
+                                    </sup>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                                <div class="accessory_w">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox3" ng-change="onAccessoriesSelect()" ng-model="project.info.accessories.micro_inverter_kit"> Microinverter Kits</label>
+                                    <sup>
+                                        <i class="ion-ios-information-outline" ng-click="toggleModal('Microinverter_Kits')"></i>
+                                    </sup>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12" ng-if="project_type=='pitched' && (project.info.features['conduit_mount'])">
+                                <div class="accessory_w">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" id="inlineCheckbox3" ng-change="onAccessoriesSelect()" ng-model="project.info.accessories.conduit_mount"> Conduit Mount</label>
+                                    <sup>
+                                        <i class="ion-ios-information-outline" ng-click="toggleModal('conduit_mount')"></i>
+                                    </sup>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Accessories section -->
+    <!-- start bill section -->
+    <div class="row">
+        <div class="panel panel-default ">
+            <h3>Bill of Materials</h3>
+            <div class="panel-body bill-panel">
+                <ng-include src="'app/views/quote/pitched_flat/_bom_items.html'"></ng-include>
+                <div class="bill-footer">
+                    <ng-include src="'app/views/quote/quote.distributors.html'"></ng-include>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 push-up">
+    <div class=" row panel panel-default doc-panel new-quote-version" style="min-width: 263px;">
+        <h3 class="document-title">
+            Next Steps
+            <div class="container-invite-btn pull-right">
+              <a class="" href="{{project.info.share_url}}" id="share_project" ng-click="shareFunc()" tab-stop-Q ><img class="img-share" src="assets/images/invite.png"></a>
+              <span>INVITE</span>
+            </div>
+        </h3>
+        <div class="panel-body panel-body-quote panel-body-quote-new">
+            <div class="container-bill-buttons">
+                <div class="bill-links">
+                    <a class="btn btn-custom new-request-quote" href="" id="button_quote" ng-click="sea.openQuote($event)"><img class="img-print" src="assets/images/text_file.png"> &nbsp;Request Quote</a>
+                </div>
+                <search-distributor ng-show="sea.distBack"></search-distributor>
+                <div class="bill-links container-multi-btn" ng-if="project.info.download_pdf.toString() == '[object Object]'">
+                    <a class="btn btn-custom large-btn" target="_blank" href="{{project.info.print_project}}" id="print_project" ng-click="printFunc()"><img class="img-print" src="assets/images/print.png"> &nbsp;Print Project</a>
+                    <a class="btn small-btn pull-right" ng-click="shareReport('Rep')" href="">
+                        <img class="" src="assets/images/email.png">
+                    </a>
+                </div>
+                <div class="bill-links container-multi-btn" ng-if="project.info.download_pdf.toString() != '[object Object]'">
+                    <div class="btn btn-custom large-btn" id="download_project" download="report.pdf" ng-click="downloadPdf(project.info.download_pdf, 'repo')">
+                        <div ng-if="buidingRep">
+                            <svg class="saving-loader" width="28" height="28">
+                                <circle class="line-load" cx="14" cy="14" r="12" />
+                            </svg>
+                            <span class="building">
+                        Building Report
+                    </span>
+                        </div>
+                        <div ng-if="!buidingRep">
+                            <img class="img-download pull-right" src="assets/images/pdf.png">
+                            <span>&nbsp;Project Report</span>
+                        </div>
+                    </div>
+                    <a class="btn small-btn" ng-click="shareReport('Rep')" href="">
+                        <img class="" src="assets/images/email.png">
+                    </a>
+                </div>
+                <div class="bill-links container-multi-btn">
+                    <div class="btn btn-custom normal-btn" id="download_bom_report" download="Bom_report.pdf" ng-click="downloadPdf(project.info.download_bom, 'bom')" ng-if="project.info.download_bom.toString() !== '[object Object]'">
+                        <div ng-if="!buidingBom">
+                            <span>
+                        &nbsp;Bill of Materials
+                    </span>
+                            <img class="img-download" src="assets/images/pdf.png">
+                        </div>
+                        <div ng-if="buidingBom">
+                            <svg class="saving-loader" width="28" height="28">
+                                <circle class="line-load" cx="14" cy="14" r="12" />
+                            </svg>
+                            <span class="building">
+                        &nbsp;Building BOM
+                    </span>
+                        </div>
+                    </div>
+                    <div class="btn btn-custom normal-btn" id="download_csv_report" ng-click="downloadCsvFunc()" ng-if="project.info.download_bom.toString() === '[object Object]'">
+                        <div ng-if="!buidingBom">
+                            <span>
+                        &nbsp;Bill of Materials
+                    </span>
+                        </div>
+                        <div ng-if="buidingBom">
+                            <svg class="saving-loader" width="28" height="28">
+                                <circle class="line-load" cx="14" cy="14" r="12" />
+                            </svg>
+                            <span class="building">
+                        &nbsp;Building BOM
+                    </span>
+                        </div>
+                    </div>
+                    <div class="btn small-btn" target="_blank" id="billof_project" download="bom.csv" name="bomCSV" ng-click="downloadCsvFunc()"><img class="csv-img-class" src="assets/images/csv.png">
+                    </div>
+                    <div class="btn small-btn" ng-click="shareReport('bom')" href="">
+                        <img class="" src="assets/images/email.png">
+                    </div>
+                </div>
+            </div>
+            <div class="group-label-documents">
+                <label>Certification</label>
+            </div>
+            <div class="row-installation">
+                <a ng-repeat="certification in project.info.documents.certification_letters" href="{{certification.url}}" target="_blank" ng-click="documentAnalytic()">{{certification.name}}</a>
+            </div>
+            <div class="group-label-documents">
+                <label>Installation</label>
+            </div>
+            <div class="row-installation">
+                <a ng-repeat="manual in project.info.documents.install_manuals" href="{{manual.url}}" target="_blank" ng-click="documentAnalytic()">{{manual.name}}</a>
+            </div>
+            <div class="group-label-documents">
+                <label>Design</label>
+            </div>
+            <div class="row-installation">
+                <!-- <a href="{{project.info.documents.engineering_design_guide.url}}" target="_blank">{{project.info.documents.engineering_design_guide.name}}</a> -->
+                <a href="{{project.info.documents.autocad_dwg.url}}" target="_blank" ng-click="documentAnalytic()">{{project.info.documents.autocad_dwg.name}}</a>
+                <a href="{{project.info.documents.autocad_pdf_preview.url}}" target="_blank" ng-click="documentAnalytic()">{{project.info.documents.autocad_pdf_preview.name}}</a>
+                <a ng-if="project.info.documents.conduit_mount" href="{{project.info.documents.conduit_mount.url}}" target="_blank" ng-click="documentAnalytic()">{{project.info.documents.conduit_mount.name}}</a>
+            </div>
+        </div>
+        <!-- end document section -->
+    </div>
+</div>
+</div>

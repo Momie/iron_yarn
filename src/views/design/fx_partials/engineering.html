@@ -1,0 +1,81 @@
+<div class="panel panel-default" id="engineering-panel">
+    <h3>Engineering</h3>
+    <div class="row panel-body">
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+          <div class="span-cantilever">
+               <h4 class="title block" style="display: inline;">SPAN & CANTILEVER</h4>
+               <div  style="width:90px;display: inline-block; margin-left:100px;">
+                 <img src="assets/images/fx_portrait_{{current_engineering == 'landscape' ? '1' : '0'}}.png" class="pull-left" ng-click="changeOrientation('landscape')">
+                 <img src="assets/images/fx_landscape_{{current_engineering == 'portrait' ? '1' : '0'}}.png" ng-click="changeOrientation('portrait')">
+               </div>
+               <table class="table subarray-details">
+                <thead>
+                    <tr>
+                        <th>ROOF ZONES</th>
+                        <th>USABLE SPAN                            <sup>
+                                <i class="ion-ios-information-outline" ng-click="toggleModal('fx_usable_span')"></i>
+                            </sup></th>
+                        <th>MAX SPAN                            <sup>
+                                <i class="ion-ios-information-outline" ng-click="toggleModal('fx_max_span')"></i>
+                            </sup></th>
+                        <th>MAX CANTILEVER                            <sup>
+                                <i class="ion-ios-information-outline" ng-click="toggleModal('fx_max_cantilever')"></i>
+                            </sup></th>
+                    </tr>
+                </thead>
+                <tbody class="subarray-group" ng-repeat="item in project.info.engineering.span_cantilever[current_engineering] track by $index">
+                    <tr class="values">
+                        <td>{{item.zone}}</td>
+                        <td ng-class="{red: item.usable_span.danger}">{{item.usable_span.value}}"</td>
+                        <td ng-class="{red: item.max_span.danger}">{{item.max_span.value}}"</td>
+                        <td>{{item.max_cantilever}}"</td>
+                    </tr>
+                </tbody>
+                <tbody class="subarray-group" ng-if="!project.info.engineering.span_cantilever[current_engineering]">
+                    <tr class="values">
+                    <td colspan="4" style="height: 100px; vertical-align: middle; text-align: center;">
+                      You have not created any arrays in {{current_engineering == 'portrait' ? 'Portrait' : 'Landscape'}} orientation.
+                    </td> 
+                    </tr>
+                </tbody>
+              </table>
+<!--             <h6 class="panel-footer">
+              <span ng-class="{active: current_engineering == 'landscape', disactive: current_engineering != 'landscape'}" ng-click="changeOrientation('landscape')">Landscape Orientation</span>
+              |
+              <span ng-class="{active: current_engineering == 'portrait' , disactive: current_engineering != 'portrait'}" ng-click="changeOrientation('portrait')">Portrait Orientation</span>
+            </h6> -->
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+          <div class="span-cantilever">
+               <h4 class="title">WEIGHT</h4>
+               <table class="table subarray-details">
+                <tr>
+                  <td>
+                    <h6>TOTAL SYSTEM WEIGHT</h6>
+                    <span class="values">{{project.info.engineering.weight.total}}</span>
+                    lbs
+                  </td>
+                  <td>
+                    <h6>WEIGHT / ATTACHMENT</h6>
+                    <span class="values">{{project.info.engineering.weight.attachment}}</span>
+                    lbs
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h6>RACKING WEIGHT</h6>
+                    <span class="values">{{project.info.engineering.weight.racking}}</span>
+                    lbs
+                  </td>
+                  <td>
+                    <h6>DISTRIBUTED WEIGHT</h6>
+                    <span class="values">{{project.info.engineering.weight.distributed}}</span>
+                    psf
+                  </td>
+                </tr>
+              </table>
+          </div>
+        </div>
+    </div>
+</div>

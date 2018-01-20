@@ -1,0 +1,37 @@
+<div class="container-fluid design-view" ng-init="initiNavBar();" ng-controller="DesignCtrl">
+    <modal-help></modal-help>
+    <!-- start array section -->
+    <div class="row push-up new-panel">
+        <div ng-show="project.info.ownership.shared" class="isshared">
+            <span>You are editing a project created by {{project.info.ownership.owner_name}}</span>
+        </div>
+        <div ng-include="'app/components/sub_array/sub_array.html'"></div>
+    </div>
+    <!-- end array section -->
+    <!-- start tilt section -->
+     <div class="row new-panel">
+       <div ng-include="'app/views/design/tilt_leg_kit/tilt_leg_kit.html'" ></div>
+     </div>
+     <!-- end tilt section -->
+    <div class="row">
+      <div class="row">
+        <!-- start rails section -->
+        <div >
+          <div ng-include="'app/views/design/components_detail/components_detail_flat.html'"></div>
+        </div>
+        <!-- end rails section -->
+        <!-- start Subarray section -->
+        <div >
+          <div ng-include="'app/views/design/array_detail/array_detail.html'"></div>
+        </div>
+        <!-- end Subarray section -->
+      </div>
+    </div>
+
+    <div class="row push-down">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 middle">
+            <button class="btn btn-gray btn-md btn-block " id="goToQuote" ng-click="go()" type="button" tab-stop-D >
+            </button>
+        </div>
+    </div>
+</div>

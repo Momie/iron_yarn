@@ -1,0 +1,7 @@
+<div class="container-fluid quote-view" ng-init="initiNavBar();" ng-controller="QuoteCtrl">
+    <modal-help></modal-help>
+    <!--***************modal share **********************************-->
+    <ng-include src="'app/views/quote/_share_report.layout.html'"></ng-include>
+    <!--***************end modal share **********************************-->
+    <ng-include src="project.info.download_pdf.toString() != '[object Object]' ? 'app/views/quote/pitched_flat/_new.layout.html' : 'app/views/quote/pitched_flat/_new.layout.html' "></ng-include>
+</div>

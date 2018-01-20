@@ -1,0 +1,34 @@
+<div id="searchDistributor" ng-show="sea.show" class=" quote-view quote-distributor-body">
+    <h4>Choose an Authorized Distributor</h4>
+    <p class="label-input">SEARCH DISTRIBUTORS</p>
+    <input ng-focus="sea.nearView=false" type="text" ng-model="sea.distRib" name="searchDis" ng-change="sea.choseDistributor(sea.distRib)"id="input" placeholder="Enter a Distributor Name">
+    <div ng-show="!sea.nearView" class="searchDistributor-list">
+        <div class="distrib-list row" ng-repeat="dis in sea.Ddistributors track by $index">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <div class="dis-name">{{dis.name}}</div>
+                <div class="dis-add">{{dis.address}}</div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button ng-click="sea.selectBySearch($index)" name="selectDisSearch">Select</button>
+            </div>
+        </div>
+    </div>
+    <div class="Dist-near-you" ng-class="{'dist-down': sea.nearView}">
+        <span class="display-inline">Or view</span>
+        <a class="display-inline" ng-click="sea.getNearDistributors()">
+            <span style="color: #548AC3;" ng-click="sea.nearView=true" name="disNearYou">distributors near you.</span>
+        </a>
+    </div>
+    <div style="margin-bottom: -5px;" ng-show="sea.nearView">
+        <div class="distrib-list-near row" ng-repeat="dis in sea.nearDistributors">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                <div class="dis-name">{{dis.name}}</div>
+                <div class="dis-add">{{dis.address}}</div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button ng-click="sea.selectByNear($index)" name="selectDisNear">Select</button>
+
+            </div>
+        </div>
+    </div>
+</div>

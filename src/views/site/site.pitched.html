@@ -1,0 +1,104 @@
+
+<div class="container-fluid site-view"  ng-init="initiNavBar();" ng-controller="SiteCtrl">
+    <modal-help></modal-help>
+    <!-- start location section -->
+    <ng-include src="'app/views/site/shared/project_info_location.section.html'"></ng-include>
+    <!-- end location section -->
+    <!--<div class="row">
+    <pre>{{project.location|json}}</pre>
+  </div>-->
+    <!-- start building section -->
+    <div class="row" >
+        <div class="panel panel-default" >
+            <h3 >Building</h3>
+            <div class="row container-building-item" ng-class= "{'input-important' : project.info.location.site_name && project.info.location.city_state , 'panel-body':true}">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3  input-group roof-sloop">
+                  <div><label for="name">roof slope</label></div>
+                  <div>
+                    <select class="form-control" convert-to-number ng-change="onBuildingSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.building.roof_slope" ng-options='number for number in roofSlope'></select>
+                    <span class="unity">DEG</span>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 input-group" >
+                  <div>
+                    <label for="name">Building height</label>
+                  </div>
+                  <div>
+                    <select class="form-control" convert-to-number ng-change="onBuildingSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.building.building_height">
+                        <option value="15">15
+                        </option>
+                        <option value="20">20
+                        </option>
+                        <option value="25">25
+                        </option>
+                        <option value="30">30
+                        </option>
+                        <option value="35">35
+                        </option>
+                        <option value="40">40
+                        </option>
+                        <option value="45">45
+                        </option>
+                        <option value="50">50
+                        </option>
+                        <option value="55">55
+                        </option>
+                        <option value="60">60
+                        </option>
+                      </select>
+                      <span class="unity">FT</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="input-group">
+                        <label for="name">wind exposure
+                            <sup>
+                                <i class="ion-ios-information-outline" ng-href="toggleModal('Wind_Exposure')"></i>
+                            </sup>
+                        </label>
+                        <div class="radio">
+                                <input  name="wind" ng-change="onBuildingSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.building.wind_exposure" type="radio" value="B" class="regular-radio">
+                                <label ><span class="regular-span">B</span></label>
+                        </div>
+                        <div class="radio">
+                                <input name="wind" ng-change="onBuildingSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.building.wind_exposure" type="radio" value="C" class="regular-radio">
+                                <label><span class="regular-span">C</span></label>
+                        </div>
+                        <div class="radio">
+                                <input name="wind" ng-change="onBuildingSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.building.wind_exposure" type="radio" value="D" class="regular-radio">
+                                <label><span class="regular-span">D</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 risk-cat" >
+                    <div class="input-group">
+                        <label for="name">risk category
+                            <sup>
+                                <i class="ion-ios-information-outline" ng-href="toggleModal('Risk_Category_pitched')"></i>
+                            </sup>
+                        </label>
+                        <div class="radio">
+                                <input  name="risk" ng-change="onBuildingSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.building.risk_category" type="radio" value="I" class="regular-radio">
+                                <label><span class="regular-span">I</span></label>
+                        </div>
+                        <div class="radio">
+                                <input name="risk" ng-change="onBuildingSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.building.risk_category" type="radio" value="II" class="regular-radio">
+                                <label><span class="regular-span">II</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- start module section -->
+    <ng-include src="'app/views/site/shared/project_info_module.section.html'"></ng-include>
+  <!--  end module section -->
+    <div class="row push-down">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 middle">
+          <button class="btn btn-gray btn-md btn-block" id="goToDesign" ng-href="go()" type="button" tab-stop >
+          </button>
+        </div>
+    </div>
+</div>
+
+<!-- end wind & now section -->

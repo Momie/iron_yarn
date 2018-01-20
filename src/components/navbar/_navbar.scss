@@ -1,0 +1,386 @@
+@import '../../variable';
+
+@media (min-width: $sm) and (max-width: $md) {
+  .infos {
+    .container-info-item{
+      margin: 0 !important;
+    }
+    .container-info-item:first-child {
+      padding-left: 10px!important;
+    }
+  }
+}
+
+.stick-to-top {
+  position: fixed !important;
+  top: 0 !important;
+}
+.button-nav{
+      width: 60px;
+      height: 32px;
+      line-height: 32px;
+      background-color: #f0f5f2;
+      border-radius: 2px;
+      text-align: center;
+      border: 1px solid #a8b3ab;
+
+      // margin-right: 15px;
+      // margin-top: 11px;
+
+      margin-left: 8px;
+      margin-top: 10px;
+      font-family: "open sans";
+      display: inline-block;
+      font-size: 8px;
+      color: #484d49 !important;
+      text-decoration: none !important;
+      padding: 0px 0px;
+      vertical-align: inherit;
+      i{
+        font-size: 22px;
+      }
+}
+// .img-close{
+//   margin-top: 10px;
+// }
+.fix-me {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  height: 0;
+  //text-align: center;
+  z-index: 1010;
+}
+.img-ground{
+  position: absolute;
+  margin-top: 2px !important;
+}
+.topnavbar{
+  background-color:white;
+  overflow: hidden;
+ .navbar {
+  box-shadow: 0px 3px 5px -2px rgba(0, 0, 0, 0.4);
+  //position: fixed;
+  margin-bottom: -3px !important;
+  font-family:  'Open Sans';
+  font-weight: 600;
+  height: 90px;
+  background-color: #f7faf8;
+  color: $darkgray;
+  width: 100% ;
+  min-width: 766px;
+  display: inline-block;
+  text-align: left;
+  &.shared {
+    border: solid 1px #FFC82C;
+    // background-color: rgba(207, 0, 15, 0.55);
+    .container-warnning{
+      padding-left: 0;
+      padding-right: 0;
+      text-overflow: clip;
+      overflow: hidden;
+      max-height: 50px;
+      div{
+        color: #FFC82C;
+        font-size: 14px;
+        line-height: 50px;
+        span{
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  .lbls-row-info{
+    padding-top: 10px;
+  }
+  .row-height{
+    height: 40px;
+  }
+  .img-flat{
+    width:26px;
+    height:33px;
+    margin-top: -17px
+  }
+  .container-location{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .container-icon{
+    display: inline-block;
+  }
+  .btn-group {
+    margin: 0 auto;
+    display: block;
+    max-width: 450px;
+    margin-top: 10px;
+    .menu-item {
+      font-weight: 500!important;
+      font-size: 13px;
+      max-width: 150px;
+      min-width: 120px;
+      width: 33%;
+      height: 30px;
+      background: none;
+      color: $darkgray;
+      border: 1px solid #78807A;
+      padding: 5px 12px ;
+      border-radius: 3px;
+      &:hover {
+        background: white;
+      }
+      &.active {
+        color: white;
+        background-color: $darkgray;
+        box-shadow: none;
+      }
+    }
+  }
+  .btn-quote-ra{
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+  }
+  .loader-group{
+    height: 36px;
+    overflow: hidden;
+  }
+  .save {
+    border: 1px solid #C5D1C9;
+    border-radius: 3px;
+    height: 27px;
+    margin-top: 10px;
+    position: absolute;
+    right: 70px;
+    width: 57px;
+    background-color: #F0F5F2;
+    p {
+      float: right;
+      margin: 0;
+      margin-right: -1px;
+      line-height: 25px;
+      height : 25px;
+      //margin-right: 20px;
+      span{
+        vertical-align: top;
+        font-size: 13px;
+      }
+      i {
+        position: relative;
+        font-size: 20px;
+      }
+    }
+  }
+  .infos {
+    .container-info-item:first-child {
+      padding-left: 45px;
+    }
+    .info-item {
+      height: 16px;
+      .pipe-summary-feet{
+        width: 25px;
+        display: inline-block;
+        float: left;
+      }
+      .pipe-summary-insh{
+        width: 16px;
+        display: inline-block;
+        float: left;
+      }
+      .pipe-summary-unit-feet{
+        float: left;
+        width: 9px;
+      }
+      .pipe-summary-unit-insh{
+        float: left;
+      }
+      .odometerPadding{
+        margin-top: -3px;
+      }
+      .odmeter-watt-val{
+        margin-left: -2px !important;
+        padding-top: 1px !important;
+      }
+      .odometer{
+        //max-height: 22px;
+        //overflow-y: hidden;
+        opacity: 1;
+      }
+      .odometer-negation-mark{
+        display: none !important;
+      }
+      .odometer-inside{
+        min-width: 50px;
+        span{
+          opacity: 1;
+          font-size: 15px;
+          color: #606662;
+          font-weight: 400;
+          // overflow: hidden;
+          // white-space: nowrap;
+          // text-overflow: ellipsis;
+          // margin-bottom: 1px;
+        }
+      }
+      span {
+        text-transform: uppercase;
+        font-size: 1rem;
+        opacity: 0.6;
+        color: #606662;
+        font-weight: 400;
+      }
+      p {
+        color : #78807A;
+        font-size: 15px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+         font-weight: 400;
+         max-height: 21px;
+        overflow-y: hidden;
+        // &[animate-on-change] {
+        //   transition: all 1s;
+        //   -webkit-transition: all 1s;
+        // }
+        // &[animate-on-change].changed {
+        //   animation: appear 300ms ease;
+        //   color: black;
+        //   transition: none;
+        //   -webkit-transition: none;
+        // }
+        span{
+          opacity: 1;
+          font-size: 15px;
+          color: #606662;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  .text-animation{
+    animation:blur .75s ease-out 3;
+  }
+}
+}
+
+
+@keyframes blur
+{
+  from{
+    text-shadow:0px 0px 10px #fff,
+    0px 0px 10px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 25px #fff,
+    0px 0px 50px #fff,
+    0px 0px 50px #fff,
+    0px 0px 50px #7B96B8,
+    0px 0px 150px #7B96B8,
+    0px 10px 100px #7B96B8,
+    0px 10px 100px #7B96B8,
+    0px 10px 100px #7B96B8,
+    0px 10px 100px #7B96B8,
+    0px -10px 100px #7B96B8,
+    0px -10px 100px #7B96B8;}
+}
+
+@media (max-width: 769px) {
+  .save {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    p {
+      float: right;
+      margin-top: 8px;
+      margin-right: 20px;
+      i {
+        position: relative;
+        top: 6px;
+        //  left: -8px;
+        font-size: 29px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .save {
+    span {
+      display: none;
+    }
+  }
+}
+
+
+.animate-show {
+  visibility: visible!important;
+   animation:4s lightSpeedOut ease !important;
+}
+
+/* light speed out */
+@keyframes lightSpeedOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+.modal-accept-content{
+  width: 700px;
+  margin-top: -1px;
+  margin-left: -88px;
+}
+.modal-accept-title{
+  font-size: 25px;
+  color: #606662;
+}
+
+ .modal-accept-body{
+   font-size: 15px;
+    margin-left: 6px;
+    margin-right: 13px;
+}
+.modal-accept-head{
+  height: 66px;
+}
+.modal-footer-butt{
+  width: 140px !important;
+  height: 34px !important;
+  border-radius: 3px;
+  color: #484d49;
+  margin-bottom: 15px;
+  background-color: #e1e6e2 !important;
+}
+.modal-accept-but{
+  color: #a8b3ab;
+  margin-right: 5px;
+}
+#reload-alert{
+  position: fixed;
+  z-index: 999999;
+  background-color: #ffd931;
+  left: 50%;
+  color: #776b5f;
+  padding: 10px;
+  max-width: 300px;
+  border-radius: 4px;
+  top: 20px;
+  button{
+    border-radius: 3px;
+    background-color: #776b5f;
+    color: white;
+    border: 0;
+  }
+}
+
+/* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+   all your sass files automatically */
+
+// injector
+// endinjector

@@ -1,0 +1,14 @@
+<div class="panel panel-default" id="attachments-panel">
+    <h3>Attachments</h3>
+    <div class="row panel-body">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" >
+                  <div>
+                    <label for="name">ATTACHMENT SPAN</label>
+                  </div>
+                  <div class=" input-group">
+                    <select class="form-control" convert-to-number ng-change="onAttachmentSpanChange()" ng-model="$parent.attachment_span" ng-options='number for number in project.info.attachment_span_values'></select>
+                      <span class="unity" style="display: table-cell;padding: 10px;">in</span>
+                    </div>
+                </div>
+    </div>
+</div>

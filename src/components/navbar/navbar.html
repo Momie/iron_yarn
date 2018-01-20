@@ -1,0 +1,142 @@
+<div ng-include="'app/components/navbar/topnav.html'" id="top-navbar-container" ng-controller="TopnavCtrl"></div>
+<div ng-controller="NavbarCtrl">
+    <div id="reload-alert" ng-show="newVersion">
+        A new version of Design Assistant has been released. Please reload this page in your browser.
+        <button ng-click="reload()">reload</button>
+    </div>
+    <div class="fix-me">
+        <div class="topnavbar">
+            <nav class="navbar navbar-static-top" ng-class="{'shared':share == true}" ng-controller="NavbarCtrl">
+                <div class="row row-height">
+                    <div class="navbar-header col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <h1 ng-if="sefix=='Mount'" class="brand-mount">Ground-Based<img class="img-ground" src="assets/images/GB.png"/></h1>
+                        <h1 ng-if="sefix!=='Mount'" class="brand" href="#">{{ sefix == 'Fx' ? 'FX' : project_type + ' Roof'}}<img ng-show="project_type=='pitched'"src="assets/images/home.svg"/><img class="img-flat" ng-show="project_type=='flat'" src="assets/images/Flat_Roof_Icon.png"/></h1>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="btn-group" ng-model="nav.radio" bs-radio-group>
+                            <div class="menu-item  btn btn-default" ng-class="{'active': activeMenu === 'site'}" ng-click="navigate('site');" id="toSiteTab">
+                                SITE
+                            </div>
+                            <div class="menu-item  btn btn-default" ng-class="{'active': activeMenu === 'design'}" ng-click="navigate('design');" id="toDesignTab">
+                                DESIGN
+                            </div>
+                            <div class="menu-item  btn btn-default btn-quote-ra" ng-class="{'active': activeMenu === 'quote'}" ng-click="navigate('quote');" id="toQuoteTab">
+                                QUOTE
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 container-warnning">
+                        <div ng-if="share == true">
+                            <img src="assets/images/warning_orange.png" />
+                            <span>Editing Shared Project</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                        <div class="button-nav pull-right" ng-click="saveAndClose()">
+                            <img class="img-close" src="assets/images/close.png" />
+                        </div>
+                    </div>
+                </div>
+                <div class=" row infos lbls-row-info">
+                    <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4 row container-info-item">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info-item">
+                            <span>project name</span>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info-item container-location">
+                            <span>location</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-8 col-sm-8 col-xs-8 row">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <span>MSRP (-{{project.info.discount}}%)</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <span>watts</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <span>$/watts</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <span>modules</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <span>{{sefix == 'Fx' ? 'Mounts' : sefix == 'Mount' ? 'pipe' : 'attachments'}}</span>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <span>{{sefix == 'Fx' ? 'Bridges' : sefix == 'Mount' ? 'piers' : 'splices'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row infos">
+                    <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4 row container-info-item">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info-item">
+                            <p animate-on-change='project.info.location.site_name'>
+                                <!-- {{$root.projectName}} -->{{site_name || '-'}}</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 info-item container-location">
+                            <p animate-on-change='project.info.location.city_state'>
+                                <!-- {{$root.cityState}} -->{{city_state || '-'}}</p>
+                        </div>
+                    </div>
+                    <div id="project-cost" class="col-lg-6 col-md-8 col-sm-8 col-xs-8 row">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.cost != '-')">-</p>
+                            <p ng-show="navBarValueObject && navBarValueObject.cost != '-'"><span>$</span>
+                                <span class="odometerPadding" odometer-options="{duration: 200}" odometer='navBarValueObject.cost'></span></p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.watts != '-')">-</p>
+                            <p odometer-options="{duration: 200}" odometer='navBarValueObject.watts' ng-show="navBarValueObject && navBarValueObject.watts != '-'"></p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.cost_per_watts != '-')">-</p>
+                            <p ng-show="navBarValueObject && navBarValueObject.cost_per_watts != '-'"><span ng-show="navBarValueObject && navBarValueObject.cost_per_watts != '-'">{{navBarValueObject.prefixCost_per_watts}}</span>
+                                <span class="odometerPadding odmeter-watt-val" odometer-options="{duration: 200}" odometer='navBarValueObject.cost_per_watts'></span></p>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.nb_modules != '-')">-</p>
+                            <p odometer-options="{duration: 200}" odometer='navBarValueObject.nb_modules' ng-show="navBarValueObject && navBarValueObject.nb_modules != '-'"></p>
+                        </div>
+
+
+                        <div ng-if="sefix==''" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item ">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.nb_attachements != '-')">-</p>
+                            <p odometer-options="{duration: 200}" odometer='navBarValueObject.nb_attachements' ng-show="navBarValueObject && navBarValueObject.nb_attachements != '-'"></p>
+                        </div>
+                        <div ng-if="sefix==''" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.nb_splices != '-')">-</p>
+                            <p odometer-options="{duration: 200}" odometer='navBarValueObject.nb_splices' ng-show="navBarValueObject && navBarValueObject.nb_splices != '-'"></p>
+                        </div>
+                        <!-- ********************* Fx Project *********************** -->
+                       <div ng-if="sefix=='Fx'" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.nb_mounts != '-')">-</p>
+                            <p odometer-options="{duration: 200}" odometer='navBarValueObject.nb_mounts' ng-show="navBarValueObject && navBarValueObject.nb_mounts != '-'"></p>
+                        </div>
+                        <div ng-if="sefix=='Fx'" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item ">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.nb_bridges != '-')">-</p>
+                            <p odometer-options="{duration: 200}" odometer='navBarValueObject.nb_bridges' ng-show="navBarValueObject && navBarValueObject.nb_bridges != '-'"></p>
+                        </div>
+                        <!-- ********************* mount Project *********************** -->
+                        <div ng-if="sefix=='Mount'" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <p ng-show="!(navBarValueObjectMount && navBarValueObject.pipe != '-')">-</p>
+                            <div class="pipe-summary-feet">
+                                <p odometer-options="{duration: 200}" odometer='navBarValueObject.pipeFeet' ng-show="navBarValueObject && navBarValueObject.pipe != '-'"></p>
+                            </div>
+                            <div class="pipe-summary-unit-feet">'</div>
+                            <div class="pipe-summary-insh">
+                                <p odometer-options="{duration: 200}" odometer='navBarValueObject.pipeInche' ng-show="navBarValueObject && navBarValueObject.pipe != '-'"></p>
+                            </div>
+                            <div class="pipe-summary-unit-insh">"</div>
+                        </div>
+                        <div ng-if="sefix=='Mount'" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 info-item">
+                            <p ng-show="!(navBarValueObject && navBarValueObject.piers != '-')">-</p>
+                            <p odometer-options="{duration: 200}" odometer='navBarValueObject.piers' ng-show="navBarValueObject && navBarValueObject.piers != '-'"></p>
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <ng-include src="'app/components/navbar/acceptTerme.html'"></ng-include>
+</div>

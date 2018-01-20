@@ -1,0 +1,242 @@
+<!-- start not ufo version -->
+<table class="table" ng-if="!project.info.ufo">
+    <thead class="mount-th">
+        <tr>
+            <th>part</th>
+            <th colspan="2">description</th>
+            <th class="quantity">qty
+                <a class="ion-android-refresh quantity-reset noselect" ng-click="quantityReset()"></a>
+            </th>
+            <th class="text-right">price/ea</th>
+            <th class="text-right">total price</th>
+        </tr>
+    </thead>
+    <tbody class="tab-stripe" ng-repeat="elem in project.info.bill_of_material.groups_of_items track by $index">
+        <tr ng-repeat="item in elem.items track by $index">
+            <td>{{item.part}}</td>
+            <td colspan="2">{{item.description}}</td>
+            <td style="min-width: 100px;">
+                <a class="ion-minus-round quantity-minus noselect" ng-click="item.spare_quantity > -1 * item.quantity && quantityReduce(item)" ng-style="{'opacity': item.spare_quantity > -1 * item.quantity ? 1 : 0, 'cursor': item.spare_quantity > -1 * item.quantity ? 'pointer' : 'default'}"></a>
+                <input type="text" ng-model="project.quantityValues[$parent.$index][$index]" ng-focus="selectAllContent($event)" ng-keydown="keyDownSpareQuantity()" ng-keyup="keyUpSpareQuantity(item, $parent.$index, $index)" ng-blur="blurSpareQuantity(item, $parent.$index, $index)">
+                <a class="ion-plus-round quantity-plus noselect" ng-click="quantityAdd(item)"></a>
+            </td>
+            <td class="text-right">{{item.price_each}}</td>
+            <td class="text-right">{{item.total_price}}</td>
+        </tr>
+    </tbody>
+
+    <tbody class="tab-footer">
+        <tr>
+            <td colspan="4" class="td-border-top">
+            </td>
+            <td class="text-right td-border-top">
+                <span>MSRP</span>
+            </td>
+            <td class="text-right td-border-top">
+                <span class="notBold text-right">{{project.info.bill_of_material.msrp}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>Discount</span>
+                <input class="input-dis " type="text" ng-model="project.info.discount" ng-keydown="keyDownUpdateDiscount()" ng-keyup="keyUpUpdateDiscount()" ng-blur="blurDiscount()" ng-focus="selectAllContent($event)">
+                <span> &nbsp;%</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold margin-left-6 text-right"> ({{project.info.bill_of_material.discounted_value}})</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2" class="text-right b-t-light">
+                <span><span>Total Price</span></span>
+            </td>
+            <td class="text-right ">
+                <span class="notBold text-right"><b>{{project.info.bill_of_material.total_price}}<b></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>$/Watt</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold text-right"><b>{{project.info.bill_of_material.dollar_per_watt}}</b></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>Weight</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold">{{project.info.structural_loads.racking_weight || 0}}&nbsp;lbs</span>
+            </td>
+        </tr>
+    </tbody>
+
+
+</table>
+<hr>
+<!-- end not ufo version -->
+<!-- start ufo version -->
+<!-- TODO: DELETE FROM once inventory of 1.81 inch clamps is depleted -->
+<div ng-if="project.info.ufo && project.info.uses_181_clamp" class="clamp_181_notice">
+    Please note: 45mm stopper sleeve does not exist. Part number has been changed to older style 1.81” mill end clamp to work with 45mm thick Modules. UFO clamp quantities have also been adjusted accordingly.
+</div>
+<!-- TODO: DELETE TO once inventory of 1.81 inch clamps is depleted -->
+<table class="table" ng-if="project.info.ufo">
+    <thead>
+        <tr>
+            <th>GROUP</th>
+            <th></th>
+            <th>COLOR</th>
+            <th>part</th>
+            <th colspan="2">description</th>
+            <th class="quantity">qty
+                <a class="ion-android-refresh quantity-reset noselect" ng-click="quantityReset()"></a>
+            </th>
+            <!-- <th></th> -->
+            <th class="text-right">price/ea</th>
+            <th class="text-right">total price</th>
+        </tr>
+    </thead>
+    <tbody class="tab-footer" ng-repeat="elem in project.info.bill_of_material.groups_of_items track by $index">
+        <tr ng-repeat="item in elem.items track by $index">
+            <td ng-style="{'border-top': $index == 0 ? '2px solid #D2D7D3' : 'none'} ">
+                <span ng-if="$index == 0">{{item.group}}</span>
+            </td>
+            <td ng-style="{'border-top': $index == 0 ? '2px solid #D2D7D3' : 'none'} ">
+                <span ng-if="$index == 0"><img src="assets/images/camera.png" ng-click="toggleModalImg(item.group)"></span>
+            </td>
+            <td ng-style="{'border-top': $index == 0 ? '2px solid #D2D7D3' : 'none'} ">
+                <div ng-if="$index == 0">
+                    <div class="color-radio" ng-if="item.group.toLowerCase() === 'tilt legs'">
+                        <div class="white-radio checked" ng-if="project.info.roof_type !== 'flat'">
+                            <input id="tilt-color2" name="tilt-color" ng-change="onColorSelect()" ng-disabled="!project.info.modules.model.id" ng-model="project.info.bill_of_material.tilt_legs_finish" type="radio" value="clear" />
+                            <label for="tilt-color2" ng-disabled="!project.info.modules.model.id">
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="black-radio checked" ng-if="project.info.roof_type !== 'flat'">
+                            <input id="tilt-color1" name="tilt-color" ng-change="onColorSelect()" ng-disabled="!project.info.modules.model.id" ng-model="project.info.bill_of_material.tilt_legs_finish" type="radio" value="black" />
+                            <label for="tilt-color1" ng-disabled="!project.info.modules.model.id">
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="color-radio" ng-if="item.group.toLowerCase() === 'clamps & grounding'">
+                        <div class="white-radio checked">
+                            <input id="clm-color2" name="clm-color" ng-change="onColorSelect()" ng-disabled="!project.info.modules.model.id" ng-model="project.info.bill_of_material.clamps_and_grounding_finish" type="radio" value="clear" />
+                            <label for="clm-color2" ng-disabled="!project.info.modules.model.id">
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="black-radio checked">
+                            <input id="clm-color1" name="clm-color" ng-change="onColorSelect()" ng-disabled="!project.info.modules.model.id" ng-model="project.info.bill_of_material.clamps_and_grounding_finish" type="radio" value="black" />
+                            <label for="clm-color1" ng-disabled="!project.info.modules.model.id">
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="color-radio" ng-if="item.group.toLowerCase() === 'attachments'">
+                        <div class="white-radio checked">
+                            <input id="l-foot-color2" name="l-foot-color2" ng-change="onColorSelect()" ng-disabled="!project.info.modules.model.id || project.info.attachments.type === 'none'" ng-model="project.info.bill_of_material.attachments_finish" type="radio" value="clear">
+                            <label for="l-foot-color2" ng-disabled="!project.info.modules.model.id">
+                                <span></span>
+                            </label>
+                        </div>
+                        <div class="black-radio checked">
+                            <input id="l-foot-color1" name="l-foot-color1" ng-change="onColorSelect()" ng-disabled="!project.info.modules.model.id || project.info.attachments.type === 'none'" ng-model="project.info.bill_of_material.attachments_finish" type="radio" value="black">
+                            <label for="l-foot-color1" ng-disabled="!project.info.modules.model.id">
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="color-radio" ng-if="item.group.toLowerCase() === 'rails & splices'">
+                        <div class="white-radio" ng-hide="project.info.rails.selected_rails !== 'XR1000'">
+                            <input type="radio" id="radio02XR1000" name="radioXR1000" ng-change="onColorSelect()" value="clear" ng-model="project.info.bill_of_material.rails_and_splices_finish" />
+                            <label for="radio02XR1000"><span></span></label>
+                        </div>
+                        <div class="white-radio checked" ng-hide="project.info.rails.selected_rails === 'XR1000'">
+                            <input type="radio" id="radio02XR1000" name="radioXR1000" ng-change="onColorSelect()" value="clear" ng-model="project.info.bill_of_material.rails_and_splices_finish" />
+                            <label for="radio02XR1000"><span></span></label>
+                        </div>
+                        <div class="black-radio checked" ng-hide="project.info.rails.selected_rails === 'XR1000' || (project.info.roof_type == 'flat' &&  project.info.rails.selected_rails === 'XR100') || (project.info.roof_type == 'flat' && project.info.rails.selected_rails === 'XR10')">
+                            <input type="radio" id="radio01XR1000" name="radioXR1000" ng-change="onColorSelect()" value="black" ng-model="project.info.bill_of_material.rails_and_splices_finish" />
+                            <label for="radio01XR1000"><span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} ">{{item.part}}</td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} " colspan="2">{{item.description}}</td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} " style="min-width: 100px;">
+                <a class="ion-minus-round quantity-minus noselect" ng-click="item.spare_quantity > -1 * item.quantity && quantityReduce(item)" ng-style="{'opacity': item.spare_quantity > -1 * item.quantity ? 1 : 0, 'cursor': item.spare_quantity > -1 * item.quantity ? 'pointer' : 'default'}"></a>
+                <input type="text" ng-model="project.quantityValues[$parent.$index][$index]" ng-focus="selectAllContent($event)" ng-keydown="keyDownSpareQuantity()" ng-keyup="keyUpSpareQuantity(item, $parent.$index, $index)" ng-blur="blurSpareQuantity(item,$parent.$index,  $index)">
+                <a class="ion-plus-round quantity-plus noselect" ng-click="quantityAdd(item)"></a>
+            </td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} " class="text-right">{{item.price_each}}</td>
+            <td ng-style="{'border-top': $index == 0  ? '2px solid #D2D7D3' : '1px solid #D2D7D3'} " class="text-right">{{item.total_price}}</td>
+        </tr>
+    </tbody>
+    <tbody class="tab-footer">
+        <tr>
+            <td colspan="7" class="td-border-top">
+            </td>
+            <td class="text-right td-border-top">
+                <span>MSRP</span>
+            </td>
+            <td class="text-right td-border-top">
+                <span class="notBold text-right">{{project.info.bill_of_material.msrp}}</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>Discount</span>
+                <input class="input-dis " type="text" ng-model="project.info.discount" ng-keydown="keyDownUpdateDiscount()" ng-keyup="keyUpUpdateDiscount()" ng-blur="blurDiscount()" ng-focus="selectAllContent($event)">
+                <span> &nbsp;%</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold margin-left-6 text-right"> ({{project.info.bill_of_material.discounted_value}})</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+            </td>
+            <td colspan="2" class="text-right b-t-light">
+                <span><span>Total Price</span></span>
+            </td>
+            <td class="text-right ">
+                <span class="notBold text-right"><b>{{project.info.bill_of_material.total_price}}<b></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>$/Watt</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold text-right"><b>{{project.info.bill_of_material.dollar_per_watt}}</b></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+            </td>
+            <td colspan="2" class="text-right">
+                <span>Weight</span>
+            </td>
+            <td class="text-right no-border">
+                <span class="notBold">{{project.info.structural_loads.racking_weight || 0}}&nbsp;lbs</span>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,53 @@
+<div class="row tilt-panel-container panel panel-default" id="tiltLegKitContainer" ng-controller="tiltLegKitCtrl">
+    <div class="panel-body">
+        <div class="row">
+            <section>
+                <h3>Tilt Leg Kit</h3>
+            </section>
+        </div>
+        <div class="row tilt-panel-item">
+            <div class="col-sm-5 container-tilt-sout-north">
+                <div class="row tiltAngleLbl">
+                    <span>TILT ANGLE</span>
+                </div>
+                <div class="row">
+                  <select class="form-control"  id="tiltAngle" name="tiltAngle" ng-change="tiltAngleChange()" ng-model="project.info.tilt_leg.angle" title="">
+                    <option ng-repeat="angle in tiltAngle track by $index" ng-disabled="angle<6 &&( activeTiltOrientation === 'landscape' || nbrPanelsLandscape >0)" value="{{angle}}"  ng-selected="project.info.tilt_leg.angle == angle" >
+                        {{angle}}°
+                    </option>
+                  </select>
+                </div>
+                <div class="row tiltLegKitLbl">
+                    <span>TILT LEG KIT</span>
+                </div>
+                <div class="row border-elem"></div>
+                <div class="row">
+                    <div class="col-sm-6 left-part">
+                        <img ng-src="{{project.info.tilt_leg.south_leg.image_url}}">
+                    </div>
+                    <div class="col-sm-6 right-part">
+                        <img ng-src="{{project.info.tilt_leg[activeTiltOrientation].north_leg.image_url}}">
+                    </div>
+                </div>
+                <div class="row legKitLbl">
+                    <span class="col-sm-6 left-part" name="tiltLegKitLeft">{{project.info.tilt_leg.south_leg.title.replace('\\','')}}</span>
+                    <span class="col-sm-6 right-part" name="tiltLegKitRight">{{project.info.tilt_leg[activeTiltOrientation].north_leg.title.replace('\\','')}}</span>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="row btn-group">
+                        <div class="deseign-item  btn btn-default" ng-disabled="!nbrPanelsPortrait" message="You have no subarrays in portrait" ng-class="{'active': activeTiltOrientation === 'portrait','tooltip':!nbrPanelsPortrait}" ng-click="switchTiltOrientation('portrait', $event);">
+                            PORTRAIT
+                        </div>
+                        <div class="deseign-item  btn btn-default" ng-disabled="!nbrPanelsLandscape" message="You have no subarrays in landscape" ng-class="{'active': activeTiltOrientation === 'landscape','tooltip':!nbrPanelsLandscape}" ng-click="switchTiltOrientation('landscape', $event);">
+                            LANDSCAPE
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="tiltLegSvg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

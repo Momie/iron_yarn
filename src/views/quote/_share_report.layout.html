@@ -1,0 +1,55 @@
+<div id="modalshareReport"class="modal-help modal fade">
+    <div class="modal-dialog bg-success">
+        <div class="modal-content">
+            <div class="modal-header modal-header-help modal-accept-head">
+                <button aria-hidden="true" class="close modal-accept-but" data-dismiss="modal" type="button" >&times;</button>
+                <h4 class="modal-title modal-accept-title">Email Project Report</h4>
+            </div>
+            <div class="modal-body modal-accept-body">
+                <div class="row row-form checkbox-iron">
+                    <input type="text" ng-model="sharing.name" name="name" ng-class="{'error-form' : sharing.nameError}" required placeholder="Recipient’s Name" />
+                    <br>
+                    <input type="email" ng-model="sharing.email" name="email" ng-class="{'error-form' : sharing.emailError}" required placeholder="Email Address"/>
+                    <br>
+                    <p>
+                        <input type="checkbox" id="cbox2" value="bom" ng-model="sharing.Rep"> <label class="checkbox-label" for="cbox2">Project Report PDF&nbsp;</label>
+                        <br>
+                        <input type="checkbox" id="cbox3" value="bom" ng-model="sharing.bom"> <label class="checkbox-label" for="cbox3">Bill of Materials PDF</label>
+                    </p>
+                    <button class="btn-send" aria-hidden="true" name="submitValidation" ng-click="sendReport()"><img src="assets/images/envelope.png">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="RegisterModal" class="modal-help modal fade">
+    <div class="modal-dialog bg-success">
+        <div class="modal-content">
+            <div class="modal-header modal-header-help modal-accept-head">
+                <button aria-hidden="true" class="close modal-accept-but" data-dismiss="modal" type="button" >&times;</button>
+                <h4 class="modal-title modal-accept-title">
+                    <img src='assets/images/warning.png'>
+                    Alert
+                </h4>
+            </div>
+            <div class="modal-body modal-accept-body">
+                <div class="row row-form">
+                    <p>{{textToregister}}
+                    </p>
+                    <a href="{{hosturl}}/users/sign_up" class="btn-send button">
+                    Sign Up For A Free Account</a>
+                    <br>
+                    <a href="{{hosturl}}/users/sign_in">Sign In To My Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="callback">
+    <img src="assets/images/success.png">
+    <h3>Success!</h3>
+    <p>
+        Your project report has been sent to
+        {{sharing.email}}
+    </p>
+</div>

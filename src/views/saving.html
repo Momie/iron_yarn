@@ -1,0 +1,54 @@
+<div class="block-saving" ng-style="{'opacity': !saveOpcity ? 0 : 1}">
+  <div class="saving-loader-global" ng-show="$root.isLoading ">
+    <svg class="saving-loader" width="120" height="120">
+      <defs>
+        <clipPath id="clipPath">
+          <circle cx="60" cy="60" r="50"/>
+        </clipPath>
+      </defs>
+      <g>
+        <g transform="translate(120, 0) scale(-1, 1)">
+          <circle class="line" cx="60" cy="60" r="50" clip-path="url(#clipPath)" transform=" rotate(-45, 60, 60)"/>
+        </g>
+      </g>
+    </svg>
+    <div ng-show="$root.isLoad " class="saving noselect" ng-class="{'loading':$root.isLoad}">Loading</div>
+    <div ng-show="!$root.isLoad" class="saving noselect">{{ $root.loaderText || 'Saving'}}</div>
+  </div>
+  <div ng-show="!$root.isLoading && $root.globalLoader==='success'">
+    <div  class=" success-icon position-fixed">
+      <svg height="31" width="48">
+        <line x1="0" y1="13" x2="15" y2="29.5" style="stroke:rgb(255,255,255);stroke-width:6"/>
+        <line x1="13" y1="29.5" x2="48" y2="0" style="stroke:rgb(255,255,255);stroke-width:6"/>
+      </svg>
+    </div>
+    <div class="position-fixed">
+      <svg>
+        <g class="cercle">
+          <g transform="translate(120, 0) scale(-1, 1)">
+            <circle fill="rgb(10,176,0)" cx="60" cy="60" r="45" transform=" rotate(-45, 60, 60)"/>
+          </g>
+        </g>
+      </div>
+    </div>
+
+    <div ng-show="!$root.isLoading && $root.globalLoader==='error'">
+      <div class="position-fixed error-icon" >
+        <svg height="30" width="30">
+          <g scale="(1,1)">
+            <line x1="0" y1="0" x2="30" y2="30" style="stroke:rgb(255,255,255);stroke-width:7"/>
+            <line x1="0" y1="30" x2="30" y2="0" style="stroke:rgb(255,255,255);stroke-width:7"/>
+          </g>
+        </svg>
+      </svg>
+    </div>
+    <div class="position-fixed">
+      <svg>
+        <g class="cercleError">
+          <g transform="translate(120, 0) scale(-1, 1)">
+            <circle fill="red"cx="60" cy="60" r="45" transform=" rotate(-45, 60, 60)"/>
+          </g>
+        </g>
+      </div>
+    </div>
+</div>

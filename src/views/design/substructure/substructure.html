@@ -1,0 +1,120 @@
+<div ng-controller="substructureCtrl">
+    <div class="panel panel-default" id="substructureContainer">
+        <h3 class="label-substructure">Substructure
+          <sup>
+              <i class="ion-ios-information-outline" ng-click="toggleModal('missing')"></i>
+          </sup>
+        </h3>
+        <div class="row panel-body">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="group-substructure">
+                    <div>
+                        <label>TILT ANGLE<sup>
+                        <i class="ion-ios-information-outline" ng-click="toggleModal('tilt_Angle')"></i>
+                    </sup>
+                        </label>
+                        <br>
+                        <select ng-change="updateSubstructure()" ng-model="project.info.substructure.tilt_angle" id="tiltAngle">
+                            <option ng-repeat="angle in project.info.substructure.tilt_angles" value="{{angle}}" ng-selected="project.info.substructure.tilt_angle == angle">{{angle}} °</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>PIPE/TUBING
+                            <sup>
+                      <i class="ion-ios-information-outline" ng-click="toggleModal('pipe_Tubing_Size')"></i>
+                    </sup>
+                        </label>
+                        <br>
+                        <select ng-change="updateSubstructure()" ng-model="project.info.substructure.pipe_tubing">
+                            <option ng-repeat="pipe in project.info.substructure.pipe_tubings" value="{{pipe}}" ng-selected="project.info.substructure.pipe_tubing == pipe">{{pipe}} "</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="block-span">
+                  <!-- <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ew-pier">
+                      <label>E-W PIER SPACING</label>
+                      <div>
+                        <span ng-if="stateMaxSpan === 'initial' || stateMaxSpan === 'edited'" class="max-span-container">{{project.info.substructure.desired_ew_pier_spacing.max_spacing}}</span>
+                        <input ng-if="stateMaxSpan === 'editing'" class="input-span"  type="text" ng-model="project.info.substructure.desired_ew_pier_spacing.max_spacing">
+                        <div class="edit-btn" ng-if="stateMaxSpan === 'initial'" ng-click="changeStateFrom('initial')">
+                          <i class="icon ion-edit"></i>
+                          <span>EDIT</span>
+                        </div>
+                        <div class="edit-btn"  ng-if="stateMaxSpan === 'editing'" ng-click="changeStateFrom('editing')">
+                          <i class="icon icon-floppy-disk"></i>
+                          <span>SAVE</span>
+                        </div>
+                        <div class="edit-btn" ng-if="stateMaxSpan === 'edited'" ng-click="changeStateFrom('edited')">
+                          <img src="assets/images/refresh.svg">
+                          <span>MAX</span>
+                          <span ng-if="project.info.substructure.max_span">{{project.info.substructure.max_span.feet}}' {{parseFloat(project.info.substructure.max_span.inches)}}"</span>
+                        </div>
+                      </div>
+                      <div class="label-max-span"><label>({{stateMaxSpan === 'initial' ? 'Max' : 'Modified'}})</label></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 actual-ew">
+                      <label>Actual E-W SPACING</label>
+                      <div>
+                        <span ng-if="(stateMaxSpan === 'initial' || stateMaxSpan === 'editing') && project.info.substructure.max_span">{{project.info.substructure.max_span.feet}}' {{parseFloat(project.info.substructure.max_span.inches)}}"</span>
+                         <span ng-if="stateMaxSpan === 'edited'">{{project.info.substructure.ew_pier_spacing.feet}}' {{parseFloat(project.info.substructure.ew_pier_spacing.inches)}}"</span>
+                       </div>
+                    </div>
+                  </div> -->
+                    <label>E-W PIER SPACING</label>
+                    <div class="radio max-span">
+                        <input class="input-radio" type="radio" ng-change="updateSubstructure()" ng-value=true ng-model="project.info.substructure.desired_ew_pier_spacing.use_max_spacing">
+                        <label><span class="max-span-value">Max Span:<span ng-if="project.info.substructure.max_span && project.info.substructure.max_span.inches && project.info.substructure.max_span.feet">
+                           {{project.info.substructure.max_span.feet}}'{{parseFloat(project.info.substructure.max_span.inches)}}"</span></span></label>
+                    </div>
+                    <div class="radio">
+                        <input class="input-radio spanSelect" type="radio" ng-change="updateSubstructure()" ng-value=false ng-model="project.info.substructure.desired_ew_pier_spacing.use_max_spacing">
+                        <label><span class="specify-title">Specify Span</span></label>
+                        <input class="input-span"  type="text" ng-model="project.info.substructure.desired_ew_pier_spacing.max_spacing" ng-blur="updateSubstructure()">
+                    </div>
+                </div>
+                <div class="diagonal-bracing">
+                    <input  type="checkbox" value="A" ng-change="updateSubstructure()" ng-value="true" ng-model="project.info.substructure.diagonal_bracing">
+                    <span class="diagonal">Diagonal Bracing
+                      <sup>
+                          <i class="ion-ios-information-outline" ng-click="toggleModal('diagonal_Bracing')"></i>
+                      </sup>
+                    </span>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 svgSubtruvture" id="substructureSvg">
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default row" id="fondation">
+        <h3 class="title">Foundation</h3>
+        <div class="panel-body row">
+            <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3 row">
+              <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <label>SOIL CLASS
+                  <sup>
+                    <i class="ion-ios-information-outline" ng-click="toggleModal('soil_Class')"></i>
+                  </sup>
+                </label>
+                <br>
+                <select ng-change="updateFoundationSoil()" ng-model="project.info.foundation.soil_class">
+                  <option ng-repeat="soil in project.info.foundation.soil_classes" value="{{soil}}" ng-selected="project.info.foundation.soil_class == soil">{{soil}}</option>
+                </select>
+              </div>
+              <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <label>HOLE DIAMETER
+                  <sup>
+                    <i class="ion-ios-information-outline" ng-click="toggleModal('hole_Diameter')"></i>
+                  </sup>
+                </label>
+                <br>
+                <select ng-change="updateFoundation()" ng-model="project.info.foundation.hole_diameter">
+                  <option ng-repeat="hole in project.info.foundation.hole_diameters" value="{{hole}}" ng-selected="project.info.foundation.hole_diameter == hole">{{hole}} "</option>
+                </select>
+              </div>
+            </div>
+            <div class="svgFoundation col-lg-8 col-md-9 col-sm-9 col-xs-9" id="FoundationSvg">
+            </div>
+        </div>
+    </div>
+</div>

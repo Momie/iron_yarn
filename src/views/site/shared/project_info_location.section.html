@@ -1,0 +1,66 @@
+<div class="row push-up">
+        <div ng-show="project.info.ownership.shared" class="isshared">
+            <span>You are editing a project created by {{project.info.ownership.owner_name}}</span>
+        </div>
+        <div class="panel panel-default">
+            <h3 >Project Info</h3>
+            <div class="panel-body row">
+              <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <div class="input-group">
+                        <label for="name">project name </label>
+                        <input class="{{locationError}}  form-control"  id="project_name" ng-blur=checkLocationUpdate() ng-keyup="checkLocation()" ng-model="project.info.location.site_name" placeholder="Enter a name for your project" required type="text">
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="input-group">
+                        <label for="name">Zip code
+                            <sup>
+                                <i class="ion-ios-information-outline" ng-click="toggleModal('Zip_Code')"/>
+                            </sup>
+                        </label>
+                        <input id="zip_code" class="{{zipCodeError}} form-control" id="zipcode" maxlength="5" ng-disabled="!project.info.location.site_name" ng-keyup="checkZip()" ng-model="project.info.location.zip_code" placeholder="Zip code" required type="text">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <div class="input-group" ng-show="location || project.info.location.city_state">
+                        <label for="name">City,State</label>
+                        <h4 class="{{zipCodeMessageError}}" id="locationResult">{{location || project.info.location.city_state}}</h4>
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 row container-win-ground">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-win-speed">
+                    <div class="input-group">
+                        <div>
+                          <label for="name">Wind speed <span class="span-asce">(ASCE 7-10)</span>
+                              <sup>
+                                  <i class="ion-ios-information-outline" ng-click="toggleModal('Wind_Speed')"></i>
+                              </sup>
+                          </label>
+                        </div>
+                        <select class="form-control" ng-change="onWindSnowSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.wind_and_snow.wind_speed">
+                            <option ng-repeat="wind_speed in project.info.wind_and_snow.available_winds">{{wind_speed}}</option>
+                        </select>
+                        <span class="unity">MPH</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 container-ground-snow">
+                    <div class="input-group">
+                        <div>
+                          <label for="name">ground snow load
+                              <sup>
+                                  <i class="ion-ios-information-outline"  ng-click="toggleModal('Ground_Snow_Load')"></i>
+                              </sup>
+                          </label>
+                        </div>
+                        <select class="form-control" ng-change="onWindSnowSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.wind_and_snow.ground_snow_load">
+                            <option ng-repeat="snow_load in project.info.wind_and_snow.available_snows">{{snow_load}}</option>
+                        </select>
+                        <span class="unity">PSF</span>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>

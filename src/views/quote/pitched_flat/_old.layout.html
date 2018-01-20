@@ -1,0 +1,160 @@
+<div class="row">
+    <div ng-show="project.info.ownership.shared" class="isshared">
+        <span>You are editing a project created by {{project.info.ownership.owner_name}}
+        </span>
+    </div>
+    <div class="panel panel-default">
+            <div class="panel-body cessori-panel">
+                <section class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                    <h3>Accessories</h3>
+                </section>
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox1" ng-change="onAccessoriesSelect()" ng-model="project.info.accessories.wire_clips">Wire Clips
+                    </label>
+                    <sup>
+                        <i class="ion-ios-information-outline" ng-click="toggleModal('Wire_Clips')">
+                    </i>
+                    </sup>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 container-end-caps">
+                    <div style="min-width:175px;margin:0;">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox2" ng-change="onAccessoriesSelect()" ng-model="project.info.accessories.end_caps"> End Caps
+                    </label>
+                    <sup>
+                        <i class="ion-ios-information-outline" ng-click="toggleModal('End_Caps')"></i>
+                    </sup>
+                </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4 container-microinverter last-one">
+                    <div style="min-width:175px;">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox3" ng-change="onAccessoriesSelect()" ng-model="project.info.accessories.micro_inverter_kit"> Microinverter Kits</label>
+                    <sup>
+                        <i class="ion-ios-information-outline" ng-click="toggleModal('Microinverter_Kits')"></i>
+                    </sup>
+                </div>
+                </div> 
+                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4 container-microinverter last-one">
+                    <div style="min-width:175px;">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inlineCheckbox3" ng-change="onAccessoriesSelect()" ng-model="project.info.accessories.conduit_mount"> Conduit Mount</label>
+                    <sup>
+                        <i class="ion-ios-information-outline" ng-click="toggleModal('conduit_mount')"></i>
+                    </sup>
+                </div>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="row">
+    <div class="panel panel-default ">
+        <h3>Bill of Materials</h3>
+        <div class="panel-body bill-panel">
+            <ng-include src="'app/views/quote/pitched_flat/_bom_items.html'"></ng-include>
+            <!-- end ufo version -->
+            <div class="bill-footer">
+                <a ng-click="downloadCsvFunc()" class="btn btn-default btn-lg btn-block" href="{{project.info.download_csv}}" target="_blank" name="bomCSV">
+                    <img src="assets/images/new_bom.png"> &nbsp; BOM CSV</a>
+                <ng-include src="'app/views/quote/quote.distributors.html'"></ng-include>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="panel panel-default" id="materialsParty">
+        <h3 class="title">3rd Party Materials</h3>
+        <div class="row material">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                <h1 class="title-h1">CONCRETE</h1>
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">VOL/PIER</label>
+                    <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">TOTAL PIERS</label>
+                    <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">TOTAL VOL</label>
+                </div>
+                <div class="row margin">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{project.info.third_party_material.concrete.vol_per_pier}} yd<sup>3</sup></div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{project.info.third_party_material.concrete.total_piers}}</div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">{{project.info.third_party_material.concrete.total_volume}} yd<sup>3</sup></div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <h1 class="title-h1">PIPE/TUBING</h1>
+                <div class="row">
+                    <label class="col-lg-5 col-md-5 col-sm-5 col-xs-5">TOTAL PIPE LENGTH</label>
+                </div>
+                <div class="row margin">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" ng-if="project.info.third_party_material.total_pipe_length.feet">{{project.info.third_party_material.total_pipe_length.feet}}' {{parseFloat(project.info.third_party_material.total_pipe_length.inches)}}"</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" row panel panel-default doc-panel">
+    <h3 class="document-title">
+        Documents
+        <div class="links">
+          <button class="btn btn-default zip-link" ng-mouseover="srcZipImg = 'zip-hover'" ng-mouseleave="srcZipImg = 'zip'" ng-mousedown="srcZipImg = 'zip-active'" ng-click="downloadZip()" ng-class="{'zipping' : zipSate === 'Zipping...', 'zipped' : zipSate === 'Zipped', 'initial' : zipSate === 'ZIP'}"
+            role="button" id="button_zip_mount" tab-stop-zip-QM>
+            <div class="pull-left" ng-show="zipSate === 'Zipping...' || zipSate === 'Zipped'">
+              <svg width="25" height="23">
+                <g>
+                  <g transform="translate(20, 0) scale(-1, 1)">
+                    <circle ng-class="{'arc-circle' : zipSate === 'Zipping...', 'circle' : zipSate === 'Zipped'}" r="8" cx="10" cy="10" fill="transparent" stroke-dasharray="50" stroke-dashoffset="0"></circle>
+                    <circle ng-show="zipSate === 'Zipping...'" id="circleProgression" r="8" cx="10" cy="10" fill="transparent" stroke-dasharray="50" stroke-dashoffset="0"></circle>
+                  </g>
+                  <g ng-show="zipSate === 'Zipped'">
+                    <line x1="6" y1="11" x2="9" y2="14" style="stroke:#0F9F4F;;stroke-width:1" />
+                    <line x1="9" y1="14" x2="13" y2="7" style="stroke:#0F9F4F;;stroke-width:1" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <img ng-src="assets/images/{{srcZipImg}}.svg" ng-show="zipSate !== 'Zipping...' && zipSate !== 'Zipped'">
+            <span>&nbsp; {{zipSate}}</span>
+          </button>
+        </div>
+      </h3>
+    <div class="panel-body">
+        <div class="div-height"></div>
+        <div class="row group-label-documents">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label>Installation</label>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label>Design</label>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                <label>Certification</label>
+            </div>
+        </div>
+        <div class="row row-installation">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <a ng-repeat="manual in project.info.documents.install_manuals" href="{{manual.url}}" target="_blank" ng-click="documentAnalytic()">{{manual.name}}</a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <a href="{{project.info.documents.autocad_dwg.url}}" target="_blank" ng-click="documentAnalytic()">{{project.info.documents.autocad_dwg.name}}</a>
+                <a href="{{project.info.documents.autocad_pdf_preview.url}}" target="_blank" ng-click="documentAnalytic()">{{project.info.documents.autocad_pdf_preview.name}}</a>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                <a ng-repeat="certification in project.info.documents.certification_letters" href="{{certification.url}}" target="_blank" ng-click="documentAnalytic()">{{certification.name}}</a>
+            </div>
+            <div></div>
+        </div>
+    </div>
+    <!-- end document section -->
+</div>
+<div class="row bottom-margin-added">
+    <div class="bill-links col-lg-10 col-md-10 col-sm-9 col-xs-9">
+        <a class="btn btn-default" target="_blank" href="{{project.info.print_project}}" id="print_project_mount" ng-click="printFunc()">
+            <img class="img-print" src="assets/images/print.png"> &nbsp;Print Project</a>
+    </div>
+    <div class="bill-links col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <a class="btn btn-default" href="{{project.info.share_url}}" id="share_project_mount" ng-click="shareFunc()" tab-stop-QM>
+            <img class="img-share" href="" src="assets/images/share.png"> &nbsp;Share Project </a>
+    </div>
+</div>

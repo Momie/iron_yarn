@@ -1,0 +1,50 @@
+<div class="panel panel-default" ng-controller="ArrayDetailMountCtrl" id="arrayDetailMountContainer">
+          <h3 class="title">Array Details</h3>
+          <div class="panel-body arrays-mount-panel">
+              <table class="table table-mount" >
+                  <thead>
+                      <tr class="border-none">
+                        <th>repeat</th>
+                          <th>Config</th>
+                          <th>MODS/PIERS</th>
+                          <th>TOTAL PIERS
+                              <!-- <sup>
+                                  <i class="ion-ios-information-outline" ng-click="toggleModal('missing')"></i>
+                              </sup> -->
+                          </th>
+                          <th>SOUTH PIERS
+                              <!-- <sup>
+                                  <i class="ion-ios-information-outline" ng-click="toggleModal('missing')"></i>
+                              </sup> -->
+                          </th>
+                          <th>NORTH PIERS
+                              <!-- <sup>
+                                  <i class="ion-ios-information-outline" ng-click="toggleModal('missing')"></i>
+                              </sup> -->
+                          </th>
+                          <th>CROSS PIPES
+                              <sup>
+                                  <i class="ion-ios-information-outline" ng-click="toggleModal('cross_Pipes')"></i>
+                              </sup>
+                          </th>
+                          <th>CANTILEVER</th>
+                          <th>TOTAL PIPE LENGTH</th>
+                      </tr>
+                  </thead>
+
+                  <tbody ng-repeat="group in project.info.arrays_details.arrays track by $index" ng-if="project.info.arrays_details.arrays.length">
+                      <tr>
+                        <td class="border-none">{{group.repeat}}x</td>
+                          <td class="arrays-mount-group-name">{{group.config}}</td>
+                          <td>{{group.mods_per_pier}}</td>
+                          <td>{{group.total_piers}}</td>
+                          <td>{{group.south_piers}}</td>
+                          <td>{{group.north_piers}}</td>
+                          <td>{{group.cross_pipes}}</td>
+                          <td>{{group.cantilever}}</td>
+                          <td>{{group.total_pipe_length}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+</div>

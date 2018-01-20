@@ -1,0 +1,50 @@
+<div class="container-fluid container-fluid-mount design-view" ng-init="initiNavBar();" ng-controller="designCtrlMount">
+    <modal-help title="modal help"></modal-help>
+
+    <!-- start array section -->
+    <div class="row push-up new-panel">
+        <div ng-show="project.info.ownership.shared" class="isshared">
+            <span>You are editing a project created by
+                {{project.info.ownership.owner_name}}</span>
+        </div>
+        <div ng-include="'app/components/array_mount/array_mount.html'"></div>
+    </div>
+    <!-- end array section -->
+
+    <div class="row">
+        <div class="row">
+            <div ng-include="'app/views/design/substructure/substructure.html'"></div>
+        </div>
+        <!-- <div class="row">
+            <div ng-include="'app/views/design/layout/layout.html'"></div>
+        </div> -->
+        <div class="row">
+            <div ng-include="'app/views/design/array_detail_mount/array_detail_mount.html'"></div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default" id="engineering">
+                <h3 class="title">Engineering</h3>
+                <div class="panel-body row material">
+                  <div class="col-lg-5 col-md-6 col-sm-8 col-xs-8">
+                    <h1 class="title-h1">REACTION FORCES</h1>
+                    <div class="row">
+                      <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3">SHEAR</label>
+                      <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3">MOMENT</label>
+                      <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3">UPLIFT</label>
+                    </div>
+                    <div class="row margin">
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{project.info.reaction_forces.shear}} <span> LBS</span></div>
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{project.info.reaction_forces.moment}} <span> FT-LBS</span></div>
+                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">{{project.info.reaction_forces.uplift}}  <span> LBS</span></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row push-down">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 middle">
+            <button class="btn btn-gray btn-md btn-block" id="goToQuote" ng-click="go()" type="button" tab-stop-DM></button>
+        </div>
+    </div>
+</div>

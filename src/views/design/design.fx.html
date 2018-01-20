@@ -1,0 +1,35 @@
+<div class="container-fluid design-view" ng-init="initiNavBar();" ng-controller="DesignFxCtrl">
+    <modal-help></modal-help>
+    <!-- start array section -->
+    <div class="row push-up new-panel">
+        <div ng-show="project.info.ownership.shared" class="isshared">
+           <span>You are e diting a project created by {{project.info.ownership.owner_name}}</span>
+        </div>
+        <div ng-include="'app/components/array_fx/array.fx.html'"></div>
+    </div>
+    <!-- end array section -->
+      <div class="row">
+        <!-- start attachments section -->
+        <div class="">
+          <div ng-include="'app/views/design/fx_partials/attachments.html'"></div>
+        </div>
+        <!-- end attachments section -->
+        <!-- start engineering section -->
+        <div class="">
+          <div ng-include="'app/views/design/fx_partials/engineering.html'"></div>
+        </div>
+        <!-- end engineering section -->
+        <!-- start Subarray section -->
+        <div class="" >
+            <div ng-include="'app/views/design/fx_partials/array_detail.html'"></div>
+        </div>
+        <!-- end Subarray section -->
+      </div>
+
+    <div class="row push-down">
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 middle">
+            <button class="btn btn-gray btn-md btn-block" id="goToQuote" ng-click="go()" type="button" tab-stop-D>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,659 @@
+@import '../../variable';
+/* .select2-result-selectable .select2-match,
+.select2-result-unselectable .select2-match {
+    text-decoration: none !important;
+    font-weight: bold !important;
+}
+
+.select2-results .select2-result-label {
+    font-weight: 300 !important;
+}
+
+.select2-container-multi .select2-choices {
+    border-radius: 2px !important;
+} */
+.new-panel {
+  //width: 930px;
+  // margin-left: 0;
+  // margin-right: 0;
+}
+// loader animation
+@-moz-keyframes three-quarters-loader {
+  0% {
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes three-quarters-loader {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes three-quarters-loader {
+  0% {
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.design-view {
+  .panel {
+    .btn-group {
+      height: 60px;
+      margin: 0 auto;
+      padding-top: 15px;
+      display: block;
+      max-width: 300px;
+      margin-top: 10px;
+      .btn-group-vertical {
+        position: relative;
+        vertical-align: middle;
+      }
+      .deseign-item.active {
+        color: white;
+        background-color: #646664;
+        box-shadow: none;
+      }
+      .deseign-item {
+        font-family: "Open Sans";
+        font-weight: 500 !important;
+        font-size: 1.1rem;
+        max-width: 150px;
+        min-width: 120px;
+        width: 33%;
+        background: none;
+        color: #646664;
+        border: 1px solid #78807A;
+        padding: 4px 12px;
+      }
+    }
+    i {
+      font-size: 1.3rem;
+    }
+    h3 {
+      margin-top: 12px;
+      margin-left: 15px;
+      margin-bottom: 12px;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: #606662;
+    }
+    .panel-body {
+      // padding: 0;
+      // padding-bottom: 8px;
+      // margin: 0 10px;
+      padding-top: 12px;
+      .form-inline {
+        label {
+          text-transform: uppercase;
+          font-weight: normal;
+          font-size: 1.2rem;
+          // float: left;
+          // display: block;
+        }
+        select {
+          font-family: "Open Sans";
+          width: 70%;
+          max-width: 100px;
+          min-width: 80px;
+          height: 30px;
+        }
+        span {
+          // float: left;
+          padding-left: 4px;
+          line-height: 32px;
+          font-size: 0.9rem;
+          //  display: inherit;
+        }
+      }
+      .select2-container-multi .select2-choices .select2-search-choice {
+        //background-color: gray;
+        background: none;
+        box-shadow: none;
+        border: none;
+        border-radius: 20px;
+        line-height: 25px;
+        padding: 0;
+        //padding-left: 22px;
+        //padding-right: 14px;
+        a {
+          display: none;
+          left: 8px;
+          top: 5px;
+        }
+      }
+      .disablable[disabled] {
+        opacity: 0.3;
+      }
+      .img-frame {
+        border: 1px solid #d2d7d3 !important;
+      }
+
+      .regular-radio + label:before {
+          background-color: #f7faf8;
+          border-radius:10px;
+          display: inline-block;
+          position: relative;
+          width: 20px;
+          height: 20px;
+          content: ' ';
+          margin-right: 10px;
+          cursor: pointer;
+          border: solid 1px #A8B3AB;
+          box-shadow: 0px 0px 0px 2px #f7faf8 inset;
+      }
+      .regular-radio + label {
+        padding-left: 0;
+      }
+      .regular-radio:checked + label:before {
+        background: #54A4FF;
+        border: solid 1px #54A4FF ;
+      }
+      .regular-radio:focus + label:before {
+        background: #54A4FF;
+        border: solid 1px #54A4FF ;
+      }
+      .regular-radio:disabled + label:before {
+        opacity: 0.5;
+      }
+      .regular-span {
+        color: rgb(96, 102, 98) !important;
+        font-size: 15px !important;
+        font-family: "Open Sans" !important;
+        line-height: 19px !important;
+        margin-top: -2px;
+        position: absolute;
+        margin-top: 0px;
+        text-transform: none;
+      }
+      input[type='radio']{
+        border-radius: 10px;
+        width: 20px;
+        height: 20px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        outline: none;
+        margin-top: -1px;
+        margin-left: 0px;
+        opacity: 0;
+        z-index: 111;
+        cursor: pointer;
+        }
+        input[type='radio']:disabled{
+          cursor: not-allowed;
+        }
+        .radio{
+          width: 140px;
+          margin-top: 5px;
+        }
+        .bonding-lbl{
+          vertical-align: top;
+          margin-bottom: 10px;
+        }
+    }
+  }
+  .tab-footer {
+    border-top: 1px solid $bordercolor;
+    padding-top: 18px;
+    padding-bottom: 30px;
+    section {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 8px;
+    }
+    img {
+      width: 60px;
+      height: 60px;
+    }
+    .color-radio {
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+        color: $textgray;
+      }
+      div {
+        margin: 0;
+        display: inline-block;
+        // margin-top: 2px;
+      }
+      input[type="radio"] {
+        display: none;
+      }
+      input[type="radio"] + label {
+        line-height: 20px;
+        font-size: 0.9rem;
+        font-weight: 400;
+        width: 30px;
+        text-align: center;
+        color: black;
+        margin-right: 4px;
+      }
+      input[type="radio"] + label span {
+        display: block;
+        width: 30px;
+        height: 30px;
+        //vertical-align: middle;
+        cursor: pointer;
+        border-radius: 2px;
+      }
+      input[type="radio"]:disabled + label span {
+        cursor: not-allowed;
+        border: none !important;
+      }
+      .black-radio {
+        input[type="radio"] + label span {
+          background-color: #484D49;
+        }
+        &.checked {
+          input[type="radio"]:checked + label span {
+            border: 3px solid $coolblue;
+          }
+        }
+      }
+      .white-radio {
+        input[type="radio"] + label span {
+          background-color: $mill;
+          border: 1px solid $bordercolor;
+        }
+        &.checked {
+          input[type="radio"]:checked + label span {
+            border: 3px solid $coolblue;
+          }
+        }
+      }
+      input[type="radio"] + label span,
+      input[type="radio"]:checked + label span {
+        transition: border 0.1s linear;
+      }
+    }
+    .length {
+      width: 40%;
+      float: right;
+    }
+  }
+  .d-option {
+    background-color: transparent !important;
+    section {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 10px;
+    }
+    img {
+      width: 60px;
+      height: 60px;
+    }
+    .color-radio {
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+        color: $textgray;
+      }
+      div {
+        margin: 0;
+        display: inline-block;
+        // margin-top: 2px;
+      }
+      input[type="radio"] {
+        display: none;
+      }
+      input[type="radio"] + label {
+        line-height: 20px;
+        font-size: 0.9rem;
+        font-weight: 400;
+        width: 30px;
+        text-align: center;
+        color: black;
+        margin-right: 4px;
+      }
+      input[type="radio"] + label span {
+        display: block;
+        width: 30px;
+        height: 30px;
+        //vertical-align: middle;
+        cursor: pointer;
+        border-radius: 2px;
+        margin-right: 10px;
+      }
+      .black-radio {
+        input[type="radio"] + label span {
+          background-color: #484D49;
+        }
+        input[type="radio"]:checked + label span {
+          border: 3px solid $coolblue;
+        }
+        input[type="radio"]:disabled + label span {
+          border: none !important;
+          cursor: not-allowed;
+        }
+      }
+      .white-radio {
+        input[type="radio"] + label span {
+          background-color: $mill;
+          //border: 1px solid $bordercolor;
+        }
+        input[type="radio"]:checked + label span {
+          border: 3px solid $coolblue;
+        }
+        input[type="radio"]:disabled + label span {
+          border: none !important;
+          cursor: not-allowed !important;
+        }
+      }
+      input[type="radio"] + label span,
+      input[type="radio"]:checked + label span {
+        transition: border 0.1s linear;
+      }
+    }
+    .length {
+      min-width: 160px;
+    }
+  }
+  .load-panel {
+    color: $darkgray;
+    b {
+      display: block;
+      &.highlighted {
+        color: red!important;
+      }
+      span {
+        font-weight: 400;
+        font-size: 1rem;
+        margin-left: 2px;
+        text-transform: uppercase;
+      }
+    }
+    table {
+      width: 100%;
+      margin: 0 auto;
+      max-width: 340px;
+      tbody {
+        tr:nth-child(odd) {
+          background: #F2F4F2;
+        }
+      }
+      th {
+        font-weight: normal;
+        text-transform: uppercase;
+        color: $textgray;
+        font-size: 1.2rem;
+        border: none;
+      }
+      td {
+        border: none;
+        padding-top: 2px;
+        padding-bottom: 2px;
+      }
+    }
+    section {
+      // margin-right: 20px;
+      margin-bottom: 10px;
+    }
+  }
+}
+.black-radio,
+.white-radio {
+  label[disabled] {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+}
+// checkbox-dropdown
+.checkbox-dropdown {
+  /* background-color: white;
+  width: 220px;
+  border: 1px solid silver;
+  border-radius: 5px;
+  cursor: pointer;
+  /* use correct mouse pointer when hovering over the dropdown */
+  /* padding: 10px;
+  position: relative;
+  margin: 0 auto;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  float: left;
+  z-index: 1;
+  margin-right: 5px; */
+  //background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAKCAYAAABSfLWiAAAAAXNSR0IArs4c6QAAAT9JREFUKBWV0MFOAjEQBuBOkWBMfADfRRZRT5408Q08eSEowUBZXbtZ2ATRbDzrG3j2pIiCUQ8+i4nx4EE6/jWUZM0aQw876XTm62xJtdUSf8mNOIguxYyrqf0dmjPX0oxpi9lcNLRqzmI0w5ayfRhgM7feX3sd3xsCEC6Xi5+jwfDxPwxAgw13SFBYCPKntvlnKe1Hhk2LJNXjo3bP5X9HpVXdsOgCiOLj9qE9z7mi4eChX1zx5pk59MqlD+yf3JmLuKhmmE8kyRiA7/JTxCbwK7eAFliwBvQO6NkVAtjDpBidugBS75dCJtAN3mYRE+niqvc2uhu+4A0q2CcAegAOHOzi9E1cwkY0EG4+w0RVFFyxENsAkk4Q7RMRtumVidiSCZQAqgA4B1DNAmyttJ+sZRsKpXxNSNq18S/A9n4DpCSQZhyNCqEAAAAASUVORK5CYII=')!important;
+  //  background-repeat: no-repeat;
+  background-color: #F7FAF8;
+  //background-position: right 10px center;
+  color: #606662;
+  width: 220px;
+  border: 1px solid #A8B3AB;
+  border-radius: 2px;
+  cursor: pointer;
+  /* use correct mouse pointer when hovering over the dropdown */
+  padding: 10px;
+  position: relative;
+  margin: 0 auto;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  float: left;
+  z-index: 1;
+  margin-right: 5px;
+  padding-bottom: 6px;
+  padding-top: 7px;
+}
+.checkbox-dropdown[disabled] {
+  background-color: #eeeeee;
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+/* Display CSS arrow to the right of the dropdown text */
+/*
+.checkbox-dropdown:after {
+  content: '';
+  height: 0;
+  position: absolute;
+  width: 0;
+  border: 5px solid transparent;
+  //border-top-width: 2px;
+  z-index: -9;
+  border-top-color: #000;
+  top: 18px;
+  right: 10px;
+  margin-top: -3px;
+}
+*/
+/* Reverse the CSS arrow when the dropdown is active */
+.checkbox-dropdown.is-active:after {
+  border-bottom-color: #000;
+  border-top-color: #fff;
+  margin-top: -9px;
+}
+.checkbox-dropdown-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  //position: absolute;
+  top: 100%;
+  /* align the dropdown right below the dropdown text */
+  border: none;
+  left: -1px;
+  /* align the dropdown to the left */
+  right: -1px;
+  /* align the dropdown to the right */
+  opacity: 0;
+  /* hide the dropdown */
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -o-transition: opacity 0.4s ease-in-out;
+  -ms-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+  pointer-events: none;
+  /* avoid mouse click events inside the dropdown */
+}
+.is-active .checkbox-dropdown-list {
+  opacity: 1;
+  /* display the dropdown */
+  pointer-events: auto;
+  /* make sure that the user still can select checkboxes */
+}
+.checkbox-dropdown-list li {
+  display: inline-block;
+  width: 65px;
+}
+/*.checkbox-dropdown-list li label {
+  display: block;
+  padding: 10px;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.checkbox-dropdown-list li label:hover {
+  background-color: #4A90E2;
+  color: white;
+}*/
+.rail-lengths {
+  /* overflow: hidden;
+  z-index: 9999;
+  position: static;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis; */
+  background-image: url("../assets/images/down.png");
+  background-repeat: no-repeat;
+  background-color: #F7FAF8;
+  background-position: right 10px center;
+  overflow: hidden;
+  z-index: 9999;
+  position: static;
+  width: 100%;
+  //height: 40px;
+  white-space: nowrap;
+  /* Don't forget this one */
+  text-overflow: ellipsis;
+  padding-left: 7px;
+  padding-right: 24px;
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+.rail-lengths-up {
+  background-image: url("../assets/images/upp.png");
+}
+.stock {
+  padding-top: 3px;
+  border-bottom: groove 1px;
+  padding-bottom: 10px;
+}
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+.checkbox,
+.checkbox-label {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 5px;
+  cursor: pointer;
+}
+.checkbox-label {
+  position: relative;
+  color: inherit;
+}
+.checkbox + .checkbox-label:before {
+  content: '';
+  background: #fff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .3);
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  margin-right: 10px;
+  text-align: center;
+}
+.checkbox:checked + .checkbox-label:before {
+  background-color: #4A90E2;
+  background-image: url("../assets/images/check-white.svg");
+  background-size: 14px;
+  background-position: 3px;
+  animation: zoom 100ms ease;
+  background-repeat: no-repeat;
+}
+.nobackground {
+  background: none;
+  background-color: white;
+}
+.hovered {
+  background-color: #F4F4F4;
+}
+.table > tbody + tbody {
+  border-top: none;
+}
+.dangers {
+  color: red!important;
+}
+td {
+  text-align: center;
+}
+tbody::after {
+  content: '';
+  display: block;
+  background-color: white;
+}
+#engineering {
+  //width: 1140px;
+  margin-left: 15px;
+  margin-right: 15px;
+  min-height: 200px;
+  h3 {
+    font-size: 25px;
+    color: #78807a;
+  }
+  .material {
+    .title-h1 {
+      font-size: 15px;
+      color: #606662;
+      font-family: "open sans";
+      margin-top: 16px;
+      padding-bottom: 6px;
+      font-weight: 700;
+    }
+    label {
+      margin-bottom: 10px;
+      margin-top: 2px;
+      font-size: 11px;
+    }
+  }
+  span {
+    font-size: 10px !important;
+    color: #78807a !important;
+  }
+  .margin {
+    div {
+      margin-top: -7px;
+    }
+  }
+}
+.red{
+  color: red;
+}

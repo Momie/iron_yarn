@@ -1,0 +1,39 @@
+<!-- <div class="row">
+    <div class="panel panel-default wind_snow">
+        <h3>Wind & Snow</h3>
+        <div class="panel-body">
+            <div class="col-md-4 col-xs-4">
+                <div class="input-group">
+                    <label for="name">Wind speed
+                        <sup>
+                            <i class="ion-ios-information-outline" ng-click="toggleModal('Wind_Speed')"></i>
+                        </sup>
+                    </label>
+                    <select class="form-control" ng-change="onWindSnowSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.wind_and_snow.wind_speed">
+                        <option ng-repeat="wind_speed in project.info.wind_and_snow.available_winds">{{wind_speed}}</option>
+                    </select>
+                    <span class="unity">MPH</span>
+                </div>
+            </div>
+            <div class="col-md-5 col-xs-4">
+                <div class="input-group">
+                    <label for="name">ground snow load
+                        <sup>
+                            <i class="ion-ios-information-outline"  ng-click="toggleModal('Ground_Snow_Load')"></i>
+                        </sup>
+                    </label>
+                    <select class="form-control" ng-change="onWindSnowSelect()" ng-disabled="!project.info.location.site_name || !project.info.location.city_state" ng-model="project.info.wind_and_snow.ground_snow_load">
+                        <option ng-repeat="snow_load in project.info.wind_and_snow.available_snows">{{snow_load}}</option>
+                    </select>
+                    <span class="unity">PSF</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-4">
+                <div class="input-group">
+                    <label for="name">asce code</label>
+                    <h4>{{project.info.asce_code || "7-10 "}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
